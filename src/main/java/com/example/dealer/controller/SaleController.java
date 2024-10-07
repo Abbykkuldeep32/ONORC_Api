@@ -15,7 +15,7 @@ import com.example.dealer.model.Sale;
 import com.example.dealer.repository.SaleRepository;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class SaleController {
 	
 	@Autowired

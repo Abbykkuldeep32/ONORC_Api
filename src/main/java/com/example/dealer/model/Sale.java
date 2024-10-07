@@ -8,19 +8,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="sale_dealer")
 public class Sale {
+	
 	@Id
+	@Column(name="id")
+	private int id;
+	
 	@Column(name="dealer_id")
 	private String dealer_id;
 	
 	@Column(name="ration_card_no")
 	private String ration_card_no;
 	
-	@Column(name="month")
-	private String month;
-	
-	@Column(name="yearr")
-	private String yearr;
-	
+	@Column(name="sale_date")
+	private String sale_date;
+		
 	@Column(name="commodity_wheat")
 	private int commodity_wheat;
 	
@@ -29,6 +30,14 @@ public class Sale {
 	
 	@Column(name="total_commodity")
 	private int total_commodity;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getDealer_id() {
 		return dealer_id;
@@ -46,20 +55,12 @@ public class Sale {
 		this.ration_card_no = ration_card_no;
 	}
 
-	public String getMonth() {
-		return month;
+	public String getSale_date() {
+		return sale_date;
 	}
 
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
-	public String getYearr() {
-		return yearr;
-	}
-
-	public void setYearr(String yearr) {
-		this.yearr = yearr;
+	public void setSale_date(String sale_date) {
+		this.sale_date = sale_date;
 	}
 
 	public int getCommodity_wheat() {
@@ -86,29 +87,19 @@ public class Sale {
 		this.total_commodity = total_commodity;
 	}
 
-	public Sale(String dealer_id, String ration_card_no, String month, String yearr, int commodity_wheat,
+	public Sale(int id, String dealer_id, String ration_card_no, String sale_date, int commodity_wheat,
 			int commodity_rice, int total_commodity) {
 		super();
+		this.id = id;
 		this.dealer_id = dealer_id;
 		this.ration_card_no = ration_card_no;
-		this.month = month;
-		this.yearr = yearr;
+		this.sale_date = sale_date;
 		this.commodity_wheat = commodity_wheat;
 		this.commodity_rice = commodity_rice;
 		this.total_commodity = total_commodity;
 	}
-	
+
 	public Sale() {
 		
 	}
-
-	@Override
-	public String toString() {
-		return "Sale [dealer_id=" + dealer_id + ", ration_card_no=" + ration_card_no + ", month=" + month + ", yearr="
-				+ yearr + ", commodity_wheat=" + commodity_wheat + ", commodity_rice=" + commodity_rice
-				+ ", total_commodity=" + total_commodity + "]";
-	}
-	
-	
-
 }
