@@ -13,7 +13,7 @@ public class Dealer {
 	
 	@Id
 	@Column(name="id")
-	private int id;
+	private Long id;
 	
 	@Column(name="address")
 	private String address;
@@ -95,13 +95,13 @@ public class Dealer {
 
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -419,7 +419,7 @@ public class Dealer {
 
 	
 
-	public Dealer(int id, String address, String nomineefathername, String fps_owner_father_name, int fpsid,
+	public Dealer(Long id, String address, String nomineefathername, String fps_owner_father_name, int fpsid,
 			String fpstype, String gender, String fpsarea, int pincode, int age, String latitute, String longitute,
 			String vigilance, String districtname, Date validity_upto, int accuracy, String adhaar_no,
 			String fpsownername, String mobileno, String license_no, Date fps_issue_date, String tehsilname,
