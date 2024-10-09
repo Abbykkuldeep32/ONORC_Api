@@ -1,7 +1,6 @@
 package com.example.dealer.repository;
 
-import java.sql.Date;
-import java.sql.Time;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;

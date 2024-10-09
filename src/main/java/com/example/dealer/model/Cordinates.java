@@ -66,7 +66,18 @@ public class Cordinates {
 	public void setSouth_cord(String south_cord) {
 		this.south_cord = south_cord;
 	}
+
+	public Cordinates(Long id, String east_cord, String west_cord, String north_cord, String south_cord) {
+		super();
+		this.id = id;
+		this.east_cord = east_cord;
+		this.west_cord = west_cord;
+		this.north_cord = north_cord;
+		this.south_cord = south_cord;
+	}
 	
-	
+	public Cordinates() {
+		
+	}
 
 }
