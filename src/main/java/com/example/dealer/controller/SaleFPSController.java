@@ -13,6 +13,7 @@ import com.example.dealer.model.SaleFPS;
 import com.example.dealer.service.SaleFPSService;
 
 
+
 @RestController
 @RequestMapping("/api/v1/sale")
 public class SaleFPSController {
@@ -20,13 +21,14 @@ public class SaleFPSController {
 	@Autowired
     private SaleFPSService salefpsService;
 
-    @GetMapping("/{fpsid}")
+    @GetMapping("/{fpsid}/{transactionDate}")
     public ResponseEntity<List<SaleFPS>> getStockByFpsid(
-    		@PathVariable String fpsid){
-    	List<SaleFPS> fpssale= salefpsService.getStockByFpsid(fpsid);
+    		@PathVariable String fpsid,
+    		@PathVariable String transactionDate){
+    	List<SaleFPS> fpssale= salefpsService.getStockByFpsid(fpsid, transactionDate);
         
         if (fpssale != null) {
-            return ResponseEntity.ok(fpssale);
+        	return ResponseEntity.ok(fpssale);
         } else {
             return ResponseEntity.notFound().build(); // Return 404 if not found
         }

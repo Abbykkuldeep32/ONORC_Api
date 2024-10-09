@@ -14,9 +14,9 @@ public class SaleFPSService {
 	@Autowired
     private SaleFPSRepository salefpsRepository;
 
-	public List<SaleFPS> getStockByFpsid(String fpsid) {
+	public List<SaleFPS> getStockByFpsid(String fpsid, String transactionDate) {
 		
-		return salefpsRepository.findByFpsid(fpsid);
+		return salefpsRepository.findByFpsidAndTransactionDate(fpsid, transactionDate);
 	}
 
 }

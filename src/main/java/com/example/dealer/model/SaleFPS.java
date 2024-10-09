@@ -1,5 +1,9 @@
 package com.example.dealer.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,7 +30,7 @@ public class SaleFPS {
 		private String fpsid;
 		
 		@Column(name="transaction_date")
-		private String transaction_date;
+		private String transactionDate;
 		
 		@Column(name="allocation_month")
 		private String allocation_month;
@@ -123,11 +127,16 @@ public class SaleFPS {
 		}
 
 		public String getTransaction_date() {
-			return transaction_date;
+//			DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//	        LocalDateTime dateTime = LocalDateTime.parse(transactionDate, originalFormat);
+//	        LocalDate date = dateTime.toLocalDate();
+//	        
+//	        return date.toString();
+			return transactionDate;
 		}
 
-		public void setTransaction_date(String transaction_date) {
-			this.transaction_date = transaction_date;
+		public void setTransaction_date(String transactionDate) {
+			this.transactionDate = transactionDate;
 		}
 
 		public String getAllocation_month() {
@@ -275,7 +284,7 @@ public class SaleFPS {
 		}
 
 		public SaleFPS(Long id, String sale_state, String sale_district, String rationcardid, String sale_fpsid,
-				String transaction_date, String allocation_month, String allocation_year, String membername,
+				String transactionDate, String allocation_month, String allocation_year, String membername,
 				String membernameII, String no_of_member, String card_type, String transaction_id,
 				String allocation_orderno, String auth_type, String home_fps_id, String home_district,
 				String home_state_name, String txn_type, String comm_code, String commodity_name,
@@ -286,7 +295,7 @@ public class SaleFPS {
 			this.sale_district = sale_district;
 			this.rationcardid = rationcardid;
 			this.fpsid = sale_fpsid;
-			this.transaction_date = transaction_date;
+			this.transactionDate = transactionDate;
 			this.allocation_month = allocation_month;
 			this.allocation_year = allocation_year;
 			this.membername = membername;

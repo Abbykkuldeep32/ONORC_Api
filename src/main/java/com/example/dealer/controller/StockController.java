@@ -14,7 +14,7 @@ import com.example.dealer.model.Stock;
 import com.example.dealer.service.StockService;
 
 @RestController
-@RequestMapping("/api/stock")
+@RequestMapping("/api/v1/stock")
 public class StockController{
 	
 	@Autowired
@@ -30,7 +30,7 @@ public class StockController{
         if (stock != null) {
             return ResponseEntity.ok(stock);
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if not found
+            return ResponseEntity.notFound().build(); 
         }
     }
 }
