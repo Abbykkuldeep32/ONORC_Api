@@ -1,7 +1,6 @@
 package com.example.dealer.model;
 
-import java.sql.Date;
-import java.sql.Time;
+
 
 
 import jakarta.persistence.Column;
