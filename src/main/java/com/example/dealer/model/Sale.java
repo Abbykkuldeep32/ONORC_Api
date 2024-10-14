@@ -27,7 +27,6 @@ public class Sale {
 	private String rationCardNo;
 	
 	@Column(name="transaction_date")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
 		
 	@Column(name="allocation_month")

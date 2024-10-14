@@ -1,6 +1,7 @@
 package com.example.dealer.controller;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,15 @@ public class SaleController {
     @GetMapping("/{rationCardNo}/{transactionDate}")
     public ResponseEntity<List<Sale>> getSaleByRationCardNo(
     		@PathVariable String rationCardNo,
-    		@PathVariable LocalDate transactionDate){
-    	//LocalDate localDate = LocalDate.parse(transactionDate); 
-    	List<Sale> sale= saleService.getSaleByRationCardNo(rationCardNo,transactionDate);
+    		@PathVariable String transactionDate){
+    	//LocalDate localDate = LocalDate.parse(transactionDate);
+    	YearMonth yearMonth = YearMonth.parse(transactionDate);
+    	List<Sale> sale= saleService.getSaleByRationCardNo(rationCardNo,yearMonth);
         
         if (sale != null) {
         	return ResponseEntity.ok(sale);
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if not found
+            return ResponseEntity.notFound().build(); 
         }
     }
 

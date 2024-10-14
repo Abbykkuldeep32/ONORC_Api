@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dealer.model.Cordinates;
-import com.example.dealer.model.SaleFPS;
 import com.example.dealer.repository.CordinatesRepository;
 import com.example.dealer.service.CordinatesService;
-import com.example.dealer.service.SaleFPSService;
 
 @RestController
 @RequestMapping("/api/v1/cordinates")
