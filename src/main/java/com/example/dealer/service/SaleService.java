@@ -1,5 +1,6 @@
 package com.example.dealer.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class SaleService {
 	@Autowired
     private SaleRepository saleRepository;
 
-	public List<Sale> getStockByRationCardNo(String rationCardNo) {
+	public List<Sale> getSaleByRationCardNo(String rationCardNo, LocalDate transactionDate) {
 		
-		return saleRepository.findByRationCardNo(rationCardNo);
+		return saleRepository.findByRationCardNoAndTransactionDate(rationCardNo, transactionDate);
 	}
 }

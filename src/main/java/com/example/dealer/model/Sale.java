@@ -1,5 +1,7 @@
 package com.example.dealer.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,7 +25,7 @@ public class Sale {
 	private String rationCardNo;
 	
 	@Column(name="transaction_date")
-	private String transaction_date;
+	private LocalDate transactionDate;
 		
 	@Column(name="allocation_month")
 	private String allocation_month;
@@ -120,13 +122,13 @@ public class Sale {
 	}
 
 
-	public String getTransaction_date() {
-		return transaction_date;
+	public LocalDate getTransaction_date() {
+		return transactionDate;
 	}
 
 
-	public void setTransaction_date(String transaction_date) {
-		this.transaction_date = transaction_date;
+	public void setTransaction_date(LocalDate transactionDate) {
+		this.transactionDate = transactionDate;
 	}
 
 
@@ -310,7 +312,7 @@ public class Sale {
 	}
 
 
-	public Sale(Long id, String sale_state, String sale_district, String rationCardNo, String transaction_date,
+	public Sale(Long id, String sale_state, String sale_district, String rationCardNo, LocalDate transactionDate,
 			String allocation_month, String allocation_year, String membername, String membernamell, String no_of_member,
 			String card_type, String transaction_id, String allocation_orderno, String auth_type, String home_fps_id,
 			String home_district, String home_state_name, String txn_type, String comm_code, String commodity_name,
@@ -320,7 +322,7 @@ public class Sale {
 		this.sale_state = sale_state;
 		this.sale_district = sale_district;
 		this.rationCardNo = rationCardNo;
-		this.transaction_date = transaction_date;
+		this.transactionDate = transactionDate;
 		this.allocation_month = allocation_month;
 		this.allocation_year = allocation_year;
 		this.membername = membername;

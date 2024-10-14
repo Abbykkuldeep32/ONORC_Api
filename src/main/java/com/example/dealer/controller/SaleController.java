@@ -1,5 +1,6 @@
 package com.example.dealer.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,18 @@ import com.example.dealer.model.Sale;
 import com.example.dealer.service.SaleService;
 
 @RestController
-@RequestMapping("/api/v1/sale")
+@RequestMapping("/api/v1/saledetail")
 public class SaleController {
 	
 	@Autowired
     private SaleService saleService;
 
-    @GetMapping("/{rationCardNo}")
-    public ResponseEntity<List<Sale>> getStockByRationCardNo(
-    		@PathVariable String rationCardNo){
-    	List<Sale> sale= saleService.getStockByRationCardNo(rationCardNo);
+    @GetMapping("/{rationCardNo}/{transactionDate}")
+    public ResponseEntity<List<Sale>> getSaleByRationCardNo(
+    		@PathVariable String rationCardNo,
+    		@PathVariable LocalDate transactionDate){
+    	//LocalDate localDate = LocalDate.parse(transactionDate); 
+    	List<Sale> sale= saleService.getSaleByRationCardNo(rationCardNo,transactionDate);
         
         if (sale != null) {
         	return ResponseEntity.ok(sale);
