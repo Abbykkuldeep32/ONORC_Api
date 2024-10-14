@@ -30,9 +30,10 @@ public class CordinatesController {
     
 
     @PostMapping("/save")
-    public ResponseEntity<Cordinates> saveCordinates(@RequestBody Cordinates cordinates) {
+    public ResponseEntity<String> saveCordinates(@RequestBody Cordinates cordinates) {
         Cordinates savedCordinates = cordinatesRepository.save(cordinates);
-        return new ResponseEntity<>(savedCordinates, HttpStatus.CREATED);
+        String message = "Cordinates saved successfully with ID: " + savedCordinates.getId();
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
     
     @GetMapping("/{fpsid}")
@@ -43,7 +44,7 @@ public class CordinatesController {
         if (cordinates != null) {
         	return ResponseEntity.ok(cordinates);
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if not found
+            return ResponseEntity.notFound().build();
         }
     }
 

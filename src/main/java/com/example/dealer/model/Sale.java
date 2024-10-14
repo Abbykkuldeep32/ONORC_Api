@@ -2,6 +2,8 @@ package com.example.dealer.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,6 +27,7 @@ public class Sale {
 	private String rationCardNo;
 	
 	@Column(name="transaction_date")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate transactionDate;
 		
 	@Column(name="allocation_month")
