@@ -21,15 +21,22 @@ public class GrievanceController {
 	
 	@PostMapping("/save")
     public ResponseEntity<SaveResponse> saveCordinates(@RequestBody Grievance grievance) {
+		try {
 		grievance.setGrievancenumber("TEMP");
 		Grievance temporaryGrievance = grievanceRepository.save(grievance);
 		String grievanceNumber = generateGrievanceNumber(temporaryGrievance.getId());
 		grievance.setGrievancenumber(grievanceNumber);
 		Grievance savedGrievance = grievanceRepository.save(grievance);
 		String message = "Grievance saved successfully with number: " + savedGrievance.getGrievancenumber();
-	    SaveResponse response = new SaveResponse(message, savedGrievance);
+	    SaveResponse response = new SaveResponse(true,message, savedGrievance);
         
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+		}catch (Exception e) {
+			
+			String errorMessage = "Failed to save grievance.";
+			SaveResponse response = new SaveResponse(false,errorMessage);
+	        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
     }
 	
 	private String generateGrievanceNumber(Long id) {
