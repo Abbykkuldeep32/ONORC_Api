@@ -16,6 +16,8 @@ import com.example.dealer.service.SaleFPSService;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
 
 
 
@@ -53,7 +55,8 @@ public class SaleFPSController {
 
             // Set response headers
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "inline; filename=grievance_report.pdf");
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.add("Content-Disposition", "attachment; filename=grievance_report.pdf");
             
             // Return PDF as byte array in response entity
             return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
