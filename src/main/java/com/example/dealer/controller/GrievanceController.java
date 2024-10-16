@@ -35,7 +35,7 @@ public class GrievanceController {
 			
 			String errorMessage = "Failed to save grievance.";
 			SaveResponse response = new SaveResponse(false,errorMessage);
-	        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+	        return new ResponseEntity<>(response, HttpStatus.OK);
 		}
     }
 	
