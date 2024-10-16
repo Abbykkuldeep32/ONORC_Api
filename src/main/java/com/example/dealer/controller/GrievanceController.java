@@ -28,7 +28,7 @@ public class GrievanceController {
 		grievance.setGrievancenumber(grievanceNumber);
 		Grievance savedGrievance = grievanceRepository.save(grievance);
 		String message = "Grievance saved successfully with number: " + savedGrievance.getGrievancenumber();
-	    SaveResponse response = new SaveResponse(true,message, savedGrievance);
+	    SaveResponse response = new SaveResponse(true,message);
         
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 		}catch (Exception e) {
