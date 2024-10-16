@@ -2,6 +2,8 @@ package com.example.dealer.model;
 
 import java.sql.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,20 +35,30 @@ public class Grievance {
 	@Column(name="grievance_description")
 	private String grievance_description;
 	
-	@Column(name="is_active")
-	private Short is_active;
-		
-	@Column(name="created_date")
-	private Date created_date;
+	@Column(name="fpsid")
+	private String fpsid;
 	
-	@Column(name="mobile")
-	private Long mobile;
+	@Column(name = "created_date", nullable = false, updatable = false)
+    @CreationTimestamp	
+	private Date created_date;
 	
 	@Column(name="last_modified")
 	private Date last_modified;
 
 	
-	
+
+	public String getFpsid() {
+		return fpsid;
+	}
+
+
+
+	public void setFpsid(String fpsid) {
+		this.fpsid = fpsid;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -119,18 +131,6 @@ public class Grievance {
 
 
 
-	public Short getIs_active() {
-		return is_active;
-	}
-
-
-
-	public void setIs_active(Short is_active) {
-		this.is_active = is_active;
-	}
-
-
-
 	public Date getCreated_date() {
 		return created_date;
 	}
@@ -139,18 +139,6 @@ public class Grievance {
 
 	public void setCreated_date(Date created_date) {
 		this.created_date = created_date;
-	}
-
-
-
-	public Long getMobile() {
-		return mobile;
-	}
-
-
-
-	public void setMobile(Long mobile) {
-		this.mobile = mobile;
 	}
 
 
@@ -166,9 +154,9 @@ public class Grievance {
 	}
 
 
-	
+
 	public Grievance(Long id, String grievancenumber, String state_name, String district_name, Short grievance_cat_id,
-			String grievance_description, Short is_active, Date created_date, Long mobile, Date last_modified) {
+			String grievance_description, String fpsid, Date created_date, Date last_modified) {
 		super();
 		this.id = id;
 		this.grievancenumber = grievancenumber;
@@ -176,9 +164,8 @@ public class Grievance {
 		this.district_name = district_name;
 		this.grievance_cat_id = grievance_cat_id;
 		this.grievance_description = grievance_description;
-		this.is_active = is_active;
+		this.fpsid = fpsid;
 		this.created_date = created_date;
-		this.mobile = mobile;
 		this.last_modified = last_modified;
 	}
 
