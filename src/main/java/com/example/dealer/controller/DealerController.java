@@ -1,7 +1,9 @@
 package com.example.dealer.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,15 +30,19 @@ public class DealerController {
 	DealerService dealerservice;
 	
 	@GetMapping("/dealer/{state}/{adhaar_no}")
-	public ResponseEntity<List<Dealer>> getDealerByFpsid(
+	public ResponseEntity<Object> getDealerByFpsid(
     		@PathVariable String state,
     		@PathVariable String adhaar_no){
     	List<Dealer> fps= dealerservice.getDealerByFpsid(state, adhaar_no);
         
-        if (fps != null) {
+        if (fps != null && !fps.isEmpty()) {
         	return ResponseEntity.ok(fps);
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if not found
+        	Map<String, Object> response = new HashMap<>();
+            response.put("status", false); 
+            response.put("message", "Aadhaar Does not exist"); 
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         }
     }
 }
