@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dealer.model.Cordinates;
 import com.example.dealer.repository.CordinatesRepository;
+import com.example.dealer.response.SaveResponse;
 import com.example.dealer.service.CordinatesService;
 
 @RestController
@@ -28,10 +29,18 @@ public class CordinatesController {
     
 
     @PostMapping("/save")
-    public ResponseEntity<String> saveCordinates(@RequestBody Cordinates cordinates) {
+    public ResponseEntity<SaveResponse> saveCordinates(@RequestBody Cordinates cordinates) {
+    	try {
         Cordinates savedCordinates = cordinatesRepository.save(cordinates);
         String message = "Cordinates saved successfully with ID: " + savedCordinates.getId();
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+        SaveResponse response = new SaveResponse(true,message);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    	}
+    	catch(Exception e) {
+    		String errorMessage = "Failed to save cordinates.";
+			SaveResponse response = new SaveResponse(false,errorMessage);
+	        return new ResponseEntity<>(response, HttpStatus.OK);
+    	}
     }
     
     @GetMapping("/{fpsid}")
