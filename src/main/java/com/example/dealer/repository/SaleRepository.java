@@ -1,7 +1,5 @@
 package com.example.dealer.repository;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +17,5 @@ public interface SaleRepository extends JpaRepository<Sale,Long>{
 	List<Sale> findByRationCardNoAndTransactionDate(@Param("rationCardNo") String rationCardNo, @Param("year") int year, 
             @Param("month") int month);
 
+	Sale findById(long id);
 }

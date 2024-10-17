@@ -30,6 +30,9 @@ public class Dealer {
 	@Column(name="fpstype")
 	private String fpstype;
 	
+	@Column(name="fpsname")
+	private String fpsname;
+	
 	@Column(name="gender")
 	private String gender;
 	
@@ -98,6 +101,18 @@ public class Dealer {
 	
 	public Long getId() {
 		return id;
+	}
+
+
+
+	public String getFpsname() {
+		return fpsname;
+	}
+
+
+
+	public void setFpsname(String fpsname) {
+		this.fpsname = fpsname;
 	}
 
 
@@ -436,7 +451,7 @@ public class Dealer {
 			String fpstype, String gender, String fpsarea, int pincode, int age, String latitute, String longitute,
 			String vigilance, String districtname, Date validity_upto, int accuracy, String adhaar_no,
 			String fpsownername, String mobileno, String license_no, Date fps_issue_date, String tehsilname,
-			String auth_type, String fpsnomineename, String fps_open_mode, String fps_mobileno, String state, String is_log) {
+			String auth_type, String fpsnomineename, String fps_open_mode, String fps_mobileno, String state, String is_log, String fpsname) {
 		super();
 		this.id = id;
 		this.address = address;
@@ -466,6 +481,7 @@ public class Dealer {
 		this.fps_mobileno = fps_mobileno;
 		this.state = state;
 		this.is_log = is_log;
+		this.fpsname = fpsname;
 	}
 
 

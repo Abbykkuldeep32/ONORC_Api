@@ -20,14 +20,4 @@ public class SaleFPSService {
 		return salefpsRepository.findByFpsidAndTransactionDate(fpsid, transactionDate);
 	}
 	
-	public List<String> fetchAllSaleFPSData() {
-        List<SaleFPS> salefps = salefpsRepository.findAll();
-        
-        return salefps.stream()
-                .map(sale -> "Sale ID: " + sale.getId() +
-                                  ", Ration Card No: " + sale.getRationcardid() +
-                                  ", Description: " + sale.getMembername())
-                .collect(Collectors.toList());
-    }
-
 }

@@ -1,5 +1,6 @@
 package com.example.dealer.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.example.dealer.model.Sale;
+import com.example.dealer.service.PdfService;
 import com.example.dealer.service.SaleService;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 @RestController
 @RequestMapping("/api/v1/saledetail")
@@ -21,6 +26,9 @@ public class SaleController {
 	
 	@Autowired
     private SaleService saleService;
+	
+	@Autowired
+    private PdfService pdfService;
 
     @GetMapping("/{rationCardNo}/{transactionDate}")
     public ResponseEntity<List<Sale>> getSaleByRationCardNo(
@@ -35,6 +43,17 @@ public class SaleController {
         } else {
             return ResponseEntity.notFound().build(); 
         }
+    }
+    
+    @GetMapping("/generate-receipt/{id}")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id) throws IOException {
+        byte[] pdf = pdfService.generateReceiptPdf(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("filename", "receipt.pdf");
+
+        return ResponseEntity.ok().headers(headers).body(pdf);
     }
 
 }
