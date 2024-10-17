@@ -93,7 +93,8 @@ public class Dealer {
 	@Column(name="state")
 	private String state;
 
-	
+	@Column(name="is_log")
+	private String is_log;
 	
 	public Long getId() {
 		return id;
@@ -419,11 +420,23 @@ public class Dealer {
 
 	
 
+	public String getIs_log() {
+		return is_log;
+	}
+
+
+
+	public void setIs_log(String is_log) {
+		this.is_log = is_log;
+	}
+
+
+
 	public Dealer(Long id, String address, String nomineefathername, String fps_owner_father_name, int fpsid,
 			String fpstype, String gender, String fpsarea, int pincode, int age, String latitute, String longitute,
 			String vigilance, String districtname, Date validity_upto, int accuracy, String adhaar_no,
 			String fpsownername, String mobileno, String license_no, Date fps_issue_date, String tehsilname,
-			String auth_type, String fpsnomineename, String fps_open_mode, String fps_mobileno, String state) {
+			String auth_type, String fpsnomineename, String fps_open_mode, String fps_mobileno, String state, String is_log) {
 		super();
 		this.id = id;
 		this.address = address;
@@ -452,6 +465,7 @@ public class Dealer {
 		this.fps_open_mode = fps_open_mode;
 		this.fps_mobileno = fps_mobileno;
 		this.state = state;
+		this.is_log = is_log;
 	}
 
 
