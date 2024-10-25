@@ -18,4 +18,5 @@ public class RatingService {
 		
 		return ratingRepository.findByFpsid(fpsid);
 	}
+	
 }

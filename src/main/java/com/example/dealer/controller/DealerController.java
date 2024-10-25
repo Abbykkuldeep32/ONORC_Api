@@ -29,18 +29,18 @@ public class DealerController {
 	@Autowired
 	DealerService dealerservice;
 	
-	@GetMapping("/dealer/{state}/{adhaar_no}")
+	@GetMapping("/dealer/{statename}/{mobile_no}")
 	public ResponseEntity<Object> getDealerByFpsid(
-    		@PathVariable String state,
-    		@PathVariable String adhaar_no){
-    	List<Dealer> fps= dealerservice.getDealerByFpsid(state, adhaar_no);
+    		@PathVariable String statename,
+    		@PathVariable String mobile_no){
+    	List<Dealer> fps= dealerservice.getDealerByFpsid(statename, mobile_no);
         
         if (fps != null && !fps.isEmpty()) {
         	return ResponseEntity.ok(fps);
         } else {
         	Map<String, Object> response = new HashMap<>();
             response.put("status", false); 
-            response.put("message", "Aadhaar Does not exist"); 
+            response.put("message", "Dealer Does not exist"); 
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }
