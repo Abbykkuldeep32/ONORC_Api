@@ -91,7 +91,7 @@ public class DealerController {
 	        Map<String, Object> response = new HashMap<>();
 	        response.put("status", false);
 	        response.put("message", "Invalid OTP");
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+	        return ResponseEntity.status(HttpStatus.OK).body(response);
 	    }
 	}
 }
