@@ -43,7 +43,7 @@ public class DealerController {
 	@Autowired
 	TemporaryStoreService tempStoreService;
 	
-	@GetMapping("/dealer")
+	@PostMapping("/dealer")
 	public ResponseEntity<Object> getDealerByFpsid(
     		@RequestBody Dealer dealer){
     	List<Dealer> fps= dealerservice.getDealerByFpsid(dealer.getStatename(), dealer.getMobile_no());
