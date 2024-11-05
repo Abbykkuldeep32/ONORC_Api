@@ -87,15 +87,18 @@ public class MpinService {
 		
 	}
 	
-	public ResponseEntity<SaveResponse> VerifyMpinByMpinAndDevice(String Mpin,String device) {
+	public ResponseEntity<LoginResponse> VerifyMpinByMpinAndDevice(String Mpin,String device) {
 		
 		Optional<Mpin> verify = mpinRepository.findByMpinAndDevice(Mpin, device);
 		
 		if(verify.isPresent()) {
-			return ResponseEntity.ok(new SaveResponse(true, "MPin Verified"));
+			String mobileNo = verify.get().getMobileNo();
+			String token = jwtUtil.generateToken(mobileNo);
+			List<Dealer> dealers = dealerRepository.findByMobileNo(mobileNo);
+			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",dealers,token));
 		}
 		
-		return ResponseEntity.ok(new SaveResponse(false, "MPin not verified"));
+		return ResponseEntity.ok(new LoginResponse(false, "MPin not verified",null,null));
 		
 	}
 	

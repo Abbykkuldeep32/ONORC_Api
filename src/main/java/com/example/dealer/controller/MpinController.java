@@ -36,7 +36,7 @@ public class MpinController {
 	}
 	
 	@GetMapping("/verifyMpin")
-	public ResponseEntity<SaveResponse> verifyMpin(@RequestBody Mpin mpin) {
+	public ResponseEntity<LoginResponse> verifyMpin(@RequestBody Mpin mpin) {
 		return mpinService.VerifyMpinByMpinAndDevice(mpin.getMpin(),mpin.getDevice());
 	}
 	
