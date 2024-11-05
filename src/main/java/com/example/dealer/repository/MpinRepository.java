@@ -9,4 +9,8 @@ public interface MpinRepository extends JpaRepository<Mpin, Long>{
 	
 	Optional<Mpin> findByMobileNo(String mobileNo);
 	
+	Optional<Mpin> findByDevice(String device);
+	
+	Optional<Mpin> findByMpinAndDevice(String Mpin,String device);
+	
 }

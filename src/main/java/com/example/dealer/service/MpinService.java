@@ -50,6 +50,7 @@ public class MpinService {
         mpinRepository.save(newUser);
         return new SaveResponse(true, "MPIN saved successfully.");
     }
+	
 
 	public ResponseEntity<LoginResponse> loginMpinIfMobileDoesExist(String mobileNo, String mpin, String device) {
 		
@@ -73,4 +74,30 @@ public class MpinService {
 	    return ResponseEntity.ok(new LoginResponse(true, "Login successful.", dealers, token ));
 		
 	}
+	
+	public ResponseEntity<SaveResponse> checkIfMpinDoesExist(String device) {
+		
+		Optional<Mpin> pin = mpinRepository.findByDevice(device);
+		
+		if(pin.isPresent()) {
+			return ResponseEntity.ok(new SaveResponse(true, "MPIN exist"));
+		}
+		
+		return ResponseEntity.ok(new SaveResponse(false, "No MPIN found"));
+		
+	}
+	
+	public ResponseEntity<SaveResponse> VerifyMpinByMpinAndDevice(String Mpin,String device) {
+		
+		Optional<Mpin> verify = mpinRepository.findByMpinAndDevice(Mpin, device);
+		
+		if(verify.isPresent()) {
+			return ResponseEntity.ok(new SaveResponse(true, "MPin Verified"));
+		}
+		
+		return ResponseEntity.ok(new SaveResponse(false, "MPin not verified"));
+		
+	}
+	
+	
 }
