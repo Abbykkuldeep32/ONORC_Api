@@ -13,4 +13,8 @@ public interface DealerRepository extends JpaRepository<Dealer,String> {
 
 	@Query("SELECT s FROM Dealer s WHERE s.statename = :statename AND s.mobile_no = :mobile_no")
     List<Dealer> findByStateAndMobileNumber(@Param("statename") String state, @Param("mobile_no") String mobile_no);
+	
+	@Query("SELECT s FROM Dealer s WHERE s.mobile_no = :mobile_no")
+    List<Dealer> findByMobileNo(@Param("mobile_no") String mobile_no);
+	
 }

@@ -3,12 +3,15 @@ package com.example.dealer.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +23,11 @@ import com.example.dealer.repository.DealerRepository;
 import com.example.dealer.service.DealerService;
 import com.example.dealer.service.OtpService;
 import com.example.dealer.service.TemporaryStoreService;
+import com.example.dealer.service.TokenBlacklistService;
 import com.example.dealer.util.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Otp;
 
@@ -42,6 +49,11 @@ public class DealerController {
 	
 	@Autowired
 	TemporaryStoreService tempStoreService;
+	
+	@Autowired
+    RedisTemplate<String, String> redisTemplate;
+	
+	
 	
 	@PostMapping("/dealer")
 	public ResponseEntity<Object> getDealerByFpsid(
@@ -94,4 +106,25 @@ public class DealerController {
 	        return ResponseEntity.status(HttpStatus.OK).body(response);
 	    }
 	}
+	
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
+        // Optionally, you might want to extract the token from the Bearer prefix
+        String jwtToken = token.substring(7); // Remove "Bearer " from the token
+
+        redisTemplate.opsForValue().set(jwtToken, "invalid", 3600, TimeUnit.SECONDS); // Set an expiration time for the invalidation
+
+        return ResponseEntity.ok("Logged out successfully");
+    }
+	
+	@GetMapping("/test-redis")
+    public String testRedisConnection() {
+        try {
+            redisTemplate.opsForValue().set("testKey", "testValue");
+            String value = redisTemplate.opsForValue().get("testKey");
+            return "Redis is working! Value: " + value;
+        } catch (Exception e) {
+            return "Error connecting to Redis: " + e.getMessage();
+        }
+    }
 }

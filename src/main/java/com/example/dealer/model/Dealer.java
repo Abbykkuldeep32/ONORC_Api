@@ -442,4 +442,21 @@ public class Dealer {
 	public Dealer() {
 		
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Dealer [fpsid=" + fpsid + ", statename=" + statename + ", license_no=" + license_no + ", fpstype="
+				+ fpstype + ", area_type=" + area_type + ", district=" + district + ", fps_operation_name="
+				+ fps_operation_name + ", fpsname=" + fpsname + ", fpsowner=" + fpsowner + ", gender=" + gender
+				+ ", age=" + age + ", address=" + address + ", tehsilname=" + tehsilname + ", villagename="
+				+ villagename + ", mobile_no=" + mobile_no + ", issuedate=" + issuedate + ", fps_validity_upto="
+				+ fps_validity_upto + ", latitute=" + latitute + ", longitute=" + longitute + ", accuracy=" + accuracy
+				+ ", fps_owner_father_name=" + fps_owner_father_name + ", pincode=" + pincode + ", fps_nomine_name="
+				+ fps_nomine_name + ", fps_nomine_mobile_no=" + fps_nomine_mobile_no + ", fps_nomine_father_name="
+				+ fps_nomine_father_name + ", fps_auth_type=" + fps_auth_type + "]";
+	}
+	
+	
 }
