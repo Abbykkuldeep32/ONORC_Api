@@ -115,12 +115,12 @@ public class SaleFPS {
 			this.rationcardid = rationcardid;
 		}
 
-		public String getSale_fpsid() {
+		public String getFpsid() {
 			return fpsid;
 		}
 
-		public void setSale_fpsid(String sale_fpsid) {
-			this.fpsid = sale_fpsid;
+		public void setFpsid(String fpsid) {
+			this.fpsid = fpsid;
 		}
 
 		public String getTransaction_date() {
@@ -280,7 +280,7 @@ public class SaleFPS {
 			this.allocation_type = allocation_type;
 		}
 
-		public SaleFPS(Long id, String sale_state, String sale_district, String rationcardid, String sale_fpsid,
+		public SaleFPS(Long id, String sale_state, String sale_district, String rationcardid, String fpsid,
 				String transactionDate, String allocation_month, String allocation_year, String membername,
 				String membernameII, String no_of_member, String card_type, String transaction_id,
 				String allocation_orderno, String auth_type, String home_fps_id, String home_district,
@@ -291,7 +291,7 @@ public class SaleFPS {
 			this.sale_state = sale_state;
 			this.sale_district = sale_district;
 			this.rationcardid = rationcardid;
-			this.fpsid = sale_fpsid;
+			this.fpsid = fpsid;
 			this.transactionDate = transactionDate;
 			this.allocation_month = allocation_month;
 			this.allocation_year = allocation_year;

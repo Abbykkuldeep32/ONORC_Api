@@ -1,6 +1,7 @@
 package com.example.dealer.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class SaleFPSService {
 	public List<SaleFPS> getStockByFpsid(String fpsid, String transactionDate) {
 		
 		return salefpsRepository.findByFpsidAndTransactionDate(fpsid, transactionDate);
+	}
+	
+	public List<SaleFPS> getStockByRationCardNo(String fpsid, String rationcardid) {
+		
+		return salefpsRepository.findFirstByFpsidAndRationcardid(fpsid, rationcardid);
 	}
 	
 }

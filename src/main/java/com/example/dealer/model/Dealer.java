@@ -2,6 +2,8 @@ package com.example.dealer.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -58,9 +60,11 @@ public class Dealer {
 	private String mobile_no;
 	
 	@Column(name="issuedate")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date issuedate;
 	
 	@Column(name="fps_validity_upto")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date fps_validity_upto;
 	
 	@Column(name="latitute")

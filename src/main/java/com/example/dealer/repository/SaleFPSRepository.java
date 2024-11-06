@@ -1,6 +1,7 @@
 package com.example.dealer.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,8 @@ public interface SaleFPSRepository extends JpaRepository<SaleFPS,Long> {
 	@Query("SELECT s FROM SaleFPS s WHERE s.fpsid = :fpsid AND DATE(s.transactionDate) = DATE(:transactionDate)")
     List<SaleFPS> findByFpsidAndTransactionDate(@Param("fpsid") String fpsid, @Param("transactionDate") String transactionDate);
 
+	@Query("SELECT s FROM SaleFPS s WHERE s.fpsid = :fpsid AND s.rationcardid = :rationcardid")
+	List<SaleFPS> findFirstByFpsidAndRationcardid(@Param("fpsid") String fpsid, @Param("rationcardid") String rationcardid);
+
+	
 }
