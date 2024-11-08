@@ -79,13 +79,15 @@ public class MpinService {
 		
 		System.out.println("Checking MPIN for device: " + device);
 		
-		Optional<Mpin> pin = mpinRepository.findByDevice(device);
+		return ResponseEntity.ok(new SaveResponse(false, "Exited after printing device"));
 		
-		if(pin.isPresent()) {
-			return ResponseEntity.ok(new SaveResponse(true, "MPIN exist"));
-		}
-		
-		return ResponseEntity.ok(new SaveResponse(false, "No MPIN found"));
+//		Optional<Mpin> pin = mpinRepository.findByDevice(device);
+//		
+//		if(pin.isPresent()) {
+//			return ResponseEntity.ok(new SaveResponse(true, "MPIN exist"));
+//		}
+//		
+//		return ResponseEntity.ok(new SaveResponse(false, "No MPIN found"));
 		
 	}
 	
