@@ -77,6 +77,8 @@ public class MpinService {
 	
 	public ResponseEntity<SaveResponse> checkIfMpinDoesExist(String device) {
 		
+		System.out.println("Checking MPIN for device: " + device);
+		
 		Optional<Mpin> pin = mpinRepository.findByDevice(device);
 		
 		if(pin.isPresent()) {
