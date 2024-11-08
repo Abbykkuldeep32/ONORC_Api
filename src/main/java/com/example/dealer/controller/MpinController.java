@@ -35,7 +35,7 @@ public class MpinController {
 		return mpinService.checkIfMpinDoesExist(mpin.getDevice());
 	}
 	
-	@GetMapping("/verifyMpin")
+	@PostMapping("/verifyMpin")
 	public ResponseEntity<LoginResponse> verifyMpin(@RequestBody Mpin mpin) {
 		return mpinService.VerifyMpinByMpinAndDevice(mpin.getMpin(),mpin.getDevice());
 	}
