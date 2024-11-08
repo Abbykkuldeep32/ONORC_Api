@@ -30,7 +30,7 @@ public class MpinController {
 		return mpinService.loginMpinIfMobileDoesExist(mpin.getMobileNo(),mpin.getMpin() ,mpin.getDevice());
 	}
 	
-	@GetMapping("/checkMpin")
+	@PostMapping("/checkMpin")
 	public ResponseEntity<SaveResponse> checkMpin(@RequestBody Mpin mpin) {
 		return mpinService.checkIfMpinDoesExist(mpin.getDevice());
 	}
