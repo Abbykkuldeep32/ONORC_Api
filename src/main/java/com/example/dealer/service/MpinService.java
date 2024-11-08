@@ -17,6 +17,9 @@ import com.example.dealer.response.LoginResponse;
 import com.example.dealer.response.SaveResponse;
 import com.example.dealer.util.JwtUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class MpinService {
 	
@@ -28,6 +31,8 @@ public class MpinService {
 	
 	@Autowired
     JwtUtil jwtUtil;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MpinService.class);
 	
 	public SaveResponse saveMpinIfMobileDoesNotExist(String mobileNo, String mpin, String device) {
 		
@@ -77,17 +82,15 @@ public class MpinService {
 	
 	public ResponseEntity<SaveResponse> checkIfMpinDoesExist(String device) {
 		
-		System.out.println("Checking MPIN for device: " + device);
+		logger.info("Checking MPIN for device: {}", device);
 		
-		return ResponseEntity.ok(new SaveResponse(false, "Exited after printing device"));
+		Optional<Mpin> pin = mpinRepository.findByDevice(device);
 		
-//		Optional<Mpin> pin = mpinRepository.findByDevice(device);
-//		
-//		if(pin.isPresent()) {
-//			return ResponseEntity.ok(new SaveResponse(true, "MPIN exist"));
-//		}
-//		
-//		return ResponseEntity.ok(new SaveResponse(false, "No MPIN found"));
+		if(pin.isPresent()) {
+			return ResponseEntity.ok(new SaveResponse(true, "MPIN exist"));
+		}
+		
+		return ResponseEntity.ok(new SaveResponse(false, "No MPIN found"));
 		
 	}
 	
