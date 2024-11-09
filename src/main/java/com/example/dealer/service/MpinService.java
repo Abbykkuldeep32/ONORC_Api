@@ -99,8 +99,8 @@ public class MpinService {
 		if(verify.isPresent()) {
 			String mobileNo = verify.get().getMobileNo();
 			String token = jwtUtil.generateToken(mobileNo);
-			List<Dealer> data = dealerRepository.findByMobileNo(mobileNo);
-			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",data,token));
+			List<Dealer> dealers = dealerRepository.findByMobileNo(mobileNo);
+			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",dealers,token));
 		}
 		
 		return ResponseEntity.ok(new LoginResponse(false, "MPin not verified",null,null));
