@@ -96,7 +96,7 @@ public class DealerController {
 	        response.put("status", true);
 	        response.put("message", "OTP verified successfully");
 	        response.put("token", token);
-	        response.put("dealer", fps);
+	        response.put("data", fps);
 	        tempStoreService.clearFpsData(otpRequest.getMobileNo());
 	        return ResponseEntity.ok(response);
 	    } else {
