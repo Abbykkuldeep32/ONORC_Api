@@ -21,23 +21,35 @@ public class Cordinates {
 	@Column(name="east_cord_long")
 	private String east_cord_long;
 	
+	@Column(name="east_image")
+	private String east_image;
+	
 	@Column(name="west_cord_lat")
 	private String west_cord_lat;
 	
 	@Column(name="west_cord_long")
 	private String west_cord_long;
 	
+	@Column(name="west_image")
+	private String west_image;
+	
 	@Column(name="north_cord_lat")
 	private String north_cord_lat;
 	
 	@Column(name="north_cord_long")
 	private String north_cord_long;
+	
+	@Column(name="north_image")
+	private String north_image;
 		
 	@Column(name="south_cord_lat")
 	private String south_cord_lat;
 	
 	@Column(name="south_cord_long")
 	private String south_cord_long;
+	
+	@Column(name="south_image")
+	private String south_image;
 	
 	@Column(name="fpsid")
 	private String fpsid;
@@ -162,19 +174,71 @@ public class Cordinates {
 
 	
 
-	public Cordinates(Long id, String east_cord_lat, String east_cord_long, String west_cord_lat, String west_cord_long,
-			String north_cord_lat, String north_cord_long, String south_cord_lat, String south_cord_long,
-			String fpsid) {
+	public String getEast_image() {
+		return east_image;
+	}
+
+
+
+	public void setEast_image(String east_image) {
+		this.east_image = east_image;
+	}
+
+
+
+	public String getWest_image() {
+		return west_image;
+	}
+
+
+
+	public void setWest_image(String west_image) {
+		this.west_image = west_image;
+	}
+
+
+
+	public String getNorth_image() {
+		return north_image;
+	}
+
+
+
+	public void setNorth_image(String north_image) {
+		this.north_image = north_image;
+	}
+
+
+
+	public String getSouth_image() {
+		return south_image;
+	}
+
+
+
+	public void setSouth_image(String south_image) {
+		this.south_image = south_image;
+	}
+
+
+
+	public Cordinates(Long id, String east_cord_lat, String east_cord_long, String east_image, String west_cord_lat,
+			String west_cord_long, String west_image, String north_cord_lat, String north_cord_long, String north_image,
+			String south_cord_lat, String south_cord_long, String south_image, String fpsid) {
 		super();
 		this.id = id;
 		this.east_cord_lat = east_cord_lat;
 		this.east_cord_long = east_cord_long;
+		this.east_image = east_image;
 		this.west_cord_lat = west_cord_lat;
 		this.west_cord_long = west_cord_long;
+		this.west_image = west_image;
 		this.north_cord_lat = north_cord_lat;
 		this.north_cord_long = north_cord_long;
+		this.north_image = north_image;
 		this.south_cord_lat = south_cord_lat;
 		this.south_cord_long = south_cord_long;
+		this.south_image = south_image;
 		this.fpsid = fpsid;
 	}
 
