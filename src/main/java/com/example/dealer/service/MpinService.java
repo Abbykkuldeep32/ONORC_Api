@@ -107,5 +107,18 @@ public class MpinService {
 		
 	}
 	
+	public ResponseEntity<LoginResponse> ForgetMpinByDevice(String device) {
+		
+		Optional<Mpin> forget = mpinRepository.findByDevice(device);
+		
+		if(forget.isPresent()) {
+			mpinRepository.delete(forget.get());
+			return ResponseEntity.ok(new LoginResponse(false, "MPIN forgotten", null, null));
+		}
+		
+		return ResponseEntity.ok(new LoginResponse(true, "MPIN not found for the given device", null, null));
+		
+	}
+	
 	
 }

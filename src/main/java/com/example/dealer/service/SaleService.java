@@ -21,4 +21,9 @@ public class SaleService {
 		
 		return saleRepository.findByRationCardNoAndTransactionDate(rationCardNo, year,month);
 	}
+	
+	public List<Sale> getSaleByMemberName(String membername) {
+		
+		return saleRepository.findByMembername(membername);
+	}
 }

@@ -40,4 +40,9 @@ public class MpinController {
 		return mpinService.VerifyMpinByMpinAndDevice(mpin.getMpin(),mpin.getDevice());
 	}
 	
+	@PostMapping("/forgetMpin")
+	public ResponseEntity<LoginResponse> forgetMpin(@RequestBody Mpin mpin) {
+		return mpinService.ForgetMpinByDevice(mpin.getDevice());
+	}
+	
 }
