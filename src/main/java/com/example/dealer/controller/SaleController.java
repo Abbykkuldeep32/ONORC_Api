@@ -2,6 +2,7 @@ package com.example.dealer.controller;
 
 import java.io.IOException;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,17 @@ public class SaleController {
     private PdfService pdfService;
 
     @GetMapping("/{rationCardNo}/{transactionDate}")
-    public ResponseEntity<AggregatedSaleResponse> getSaleByRationCardNo(
+    public ResponseEntity<AggregatedSaleResponse[]> getSaleByRationCardNo(
     		@PathVariable String rationCardNo,
     		@PathVariable String transactionDate){
     	//LocalDate localDate = LocalDate.parse(transactionDate);
     	YearMonth yearMonth = YearMonth.parse(transactionDate);
-    	AggregatedSaleResponse sales= saleService.getSaleByRationCardNo(rationCardNo,yearMonth);
+    	AggregatedSaleResponse[] sales= saleService.getSaleByRationCardNo(rationCardNo,yearMonth);
         
         if (sales != null) {
         	return ResponseEntity.ok(sales);
         } else {
-            return ResponseEntity.notFound().build(); 
+        	return ResponseEntity.ok(new AggregatedSaleResponse[0]); 
         }
     }
     
