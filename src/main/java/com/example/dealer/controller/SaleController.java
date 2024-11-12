@@ -1,7 +1,6 @@
 package com.example.dealer.controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.example.dealer.model.Sale;
+import com.example.dealer.response.AggregatedSaleResponse;
 import com.example.dealer.service.PdfService;
 import com.example.dealer.service.SaleService;
 
@@ -33,15 +33,15 @@ public class SaleController {
     private PdfService pdfService;
 
     @GetMapping("/{rationCardNo}/{transactionDate}")
-    public ResponseEntity<List<Sale>> getSaleByRationCardNo(
+    public ResponseEntity<AggregatedSaleResponse> getSaleByRationCardNo(
     		@PathVariable String rationCardNo,
     		@PathVariable String transactionDate){
     	//LocalDate localDate = LocalDate.parse(transactionDate);
     	YearMonth yearMonth = YearMonth.parse(transactionDate);
-    	List<Sale> sale= saleService.getSaleByRationCardNo(rationCardNo,yearMonth);
+    	AggregatedSaleResponse sales= saleService.getSaleByRationCardNo(rationCardNo,yearMonth);
         
-        if (sale != null) {
-        	return ResponseEntity.ok(sale);
+        if (sales != null) {
+        	return ResponseEntity.ok(sales);
         } else {
             return ResponseEntity.notFound().build(); 
         }
