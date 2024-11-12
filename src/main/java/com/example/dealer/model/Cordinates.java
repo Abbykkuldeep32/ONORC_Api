@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,8 +22,9 @@ public class Cordinates {
 	@Column(name="east_cord_long")
 	private String east_cord_long;
 	
+	@Lob
 	@Column(name="east_image")
-	private String east_image;
+	private byte[] eastImage;
 	
 	@Column(name="west_cord_lat")
 	private String west_cord_lat;
@@ -30,8 +32,9 @@ public class Cordinates {
 	@Column(name="west_cord_long")
 	private String west_cord_long;
 	
+	@Lob
 	@Column(name="west_image")
-	private String west_image;
+	private byte[] westImage;
 	
 	@Column(name="north_cord_lat")
 	private String north_cord_lat;
@@ -39,8 +42,9 @@ public class Cordinates {
 	@Column(name="north_cord_long")
 	private String north_cord_long;
 	
+	@Lob
 	@Column(name="north_image")
-	private String north_image;
+	private byte[] northImage;
 		
 	@Column(name="south_cord_lat")
 	private String south_cord_lat;
@@ -48,13 +52,15 @@ public class Cordinates {
 	@Column(name="south_cord_long")
 	private String south_cord_long;
 	
+	@Lob
 	@Column(name="south_image")
-	private String south_image;
+	private byte[] southImage;
 	
 	@Column(name="fpsid")
 	private String fpsid;
-	
-	
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -91,6 +97,18 @@ public class Cordinates {
 
 
 
+	public byte[] getEastImage() {
+		return eastImage;
+	}
+
+
+
+	public void setEastImage(byte[] eastImage) {
+		this.eastImage = eastImage;
+	}
+
+
+
 	public String getWest_cord_lat() {
 		return west_cord_lat;
 	}
@@ -111,6 +129,18 @@ public class Cordinates {
 
 	public void setWest_cord_long(String west_cord_long) {
 		this.west_cord_long = west_cord_long;
+	}
+
+
+
+	public byte[] getWestImage() {
+		return westImage;
+	}
+
+
+
+	public void setWestImage(byte[] westImage) {
+		this.westImage = westImage;
 	}
 
 
@@ -139,6 +169,18 @@ public class Cordinates {
 
 
 
+	public byte[] getNorthImage() {
+		return northImage;
+	}
+
+
+
+	public void setNorthImage(byte[] northImage) {
+		this.northImage = northImage;
+	}
+
+
+
 	public String getSouth_cord_lat() {
 		return south_cord_lat;
 	}
@@ -162,6 +204,19 @@ public class Cordinates {
 	}
 
 
+
+	public byte[] getSouthImage() {
+		return southImage;
+	}
+
+
+
+	public void setSouthImage(byte[] southImage) {
+		this.southImage = southImage;
+	}
+
+
+
 	public String getFpsid() {
 		return fpsid;
 	}
@@ -174,71 +229,23 @@ public class Cordinates {
 
 	
 
-	public String getEast_image() {
-		return east_image;
-	}
-
-
-
-	public void setEast_image(String east_image) {
-		this.east_image = east_image;
-	}
-
-
-
-	public String getWest_image() {
-		return west_image;
-	}
-
-
-
-	public void setWest_image(String west_image) {
-		this.west_image = west_image;
-	}
-
-
-
-	public String getNorth_image() {
-		return north_image;
-	}
-
-
-
-	public void setNorth_image(String north_image) {
-		this.north_image = north_image;
-	}
-
-
-
-	public String getSouth_image() {
-		return south_image;
-	}
-
-
-
-	public void setSouth_image(String south_image) {
-		this.south_image = south_image;
-	}
-
-
-
-	public Cordinates(Long id, String east_cord_lat, String east_cord_long, String east_image, String west_cord_lat,
-			String west_cord_long, String west_image, String north_cord_lat, String north_cord_long, String north_image,
-			String south_cord_lat, String south_cord_long, String south_image, String fpsid) {
+	public Cordinates(Long id, String east_cord_lat, String east_cord_long, byte[] eastImage, String west_cord_lat,
+			String west_cord_long, byte[] westImage, String north_cord_lat, String north_cord_long, byte[] northImage,
+			String south_cord_lat, String south_cord_long, byte[] southImage, String fpsid) {
 		super();
 		this.id = id;
 		this.east_cord_lat = east_cord_lat;
 		this.east_cord_long = east_cord_long;
-		this.east_image = east_image;
+		this.eastImage = eastImage;
 		this.west_cord_lat = west_cord_lat;
 		this.west_cord_long = west_cord_long;
-		this.west_image = west_image;
+		this.westImage = westImage;
 		this.north_cord_lat = north_cord_lat;
 		this.north_cord_long = north_cord_long;
-		this.north_image = north_image;
+		this.northImage = northImage;
 		this.south_cord_lat = south_cord_lat;
 		this.south_cord_long = south_cord_long;
-		this.south_image = south_image;
+		this.southImage = southImage;
 		this.fpsid = fpsid;
 	}
 

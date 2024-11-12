@@ -1,5 +1,6 @@
 package com.example.dealer.controller;
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,19 @@ public class CordinatesController {
     @PostMapping("/save")
     public ResponseEntity<SaveResponse> saveCordinates(@RequestBody Cordinates cordinates) {
     	try {
+    		if (cordinates.getEastImage() != null) {
+                cordinates.setEastImage(Base64.getDecoder().decode(cordinates.getEastImage()));
+            }
+            if (cordinates.getWestImage() != null) {
+                cordinates.setWestImage(Base64.getDecoder().decode(cordinates.getWestImage()));
+            }
+            if (cordinates.getNorthImage() != null) {
+                cordinates.setNorthImage(Base64.getDecoder().decode(cordinates.getNorthImage()));
+            }
+            if (cordinates.getSouthImage() != null) {
+                cordinates.setSouthImage(Base64.getDecoder().decode(cordinates.getSouthImage()));
+            }
+            
         Cordinates savedCordinates = cordinatesRepository.save(cordinates);
         String message = "Cordinates saved successfully with ID: " + savedCordinates.getId();
         SaveResponse response = new SaveResponse(true,message);
