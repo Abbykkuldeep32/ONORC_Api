@@ -32,18 +32,6 @@ public class CordinatesController {
     @PostMapping("/save")
     public ResponseEntity<SaveResponse> saveCordinates(@RequestBody Cordinates cordinates) {
     	try {
-    		if (cordinates.getEastImage() != null) {
-                cordinates.setEastImage(Base64.getDecoder().decode(cordinates.getEastImage()));
-            }
-            if (cordinates.getWestImage() != null) {
-                cordinates.setWestImage(Base64.getDecoder().decode(cordinates.getWestImage()));
-            }
-            if (cordinates.getNorthImage() != null) {
-                cordinates.setNorthImage(Base64.getDecoder().decode(cordinates.getNorthImage()));
-            }
-            if (cordinates.getSouthImage() != null) {
-                cordinates.setSouthImage(Base64.getDecoder().decode(cordinates.getSouthImage()));
-            }
             
         Cordinates savedCordinates = cordinatesRepository.save(cordinates);
         String message = "Cordinates saved successfully with ID: " + savedCordinates.getId();
@@ -51,6 +39,7 @@ public class CordinatesController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     	}
     	catch(Exception e) {
+    		e.printStackTrace();
     		String errorMessage = "Failed to save cordinates.";
 			SaveResponse response = new SaveResponse(false,errorMessage);
 	        return new ResponseEntity<>(response, HttpStatus.OK);

@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,9 +21,8 @@ public class Cordinates {
 	@Column(name="east_cord_long")
 	private String east_cord_long;
 	
-	@Lob
-	@Column(name="east_image")
-	private byte[] eastImage;
+	@Column(name="east_image", columnDefinition = "TEXT")
+	private String eastImage;
 	
 	@Column(name="west_cord_lat")
 	private String west_cord_lat;
@@ -32,9 +30,8 @@ public class Cordinates {
 	@Column(name="west_cord_long")
 	private String west_cord_long;
 	
-	@Lob
-	@Column(name="west_image")
-	private byte[] westImage;
+	@Column(name="west_image", columnDefinition = "TEXT")
+	private String westImage;
 	
 	@Column(name="north_cord_lat")
 	private String north_cord_lat;
@@ -42,9 +39,8 @@ public class Cordinates {
 	@Column(name="north_cord_long")
 	private String north_cord_long;
 	
-	@Lob
-	@Column(name="north_image")
-	private byte[] northImage;
+	@Column(name="north_image", columnDefinition = "TEXT")
+	private String northImage;
 		
 	@Column(name="south_cord_lat")
 	private String south_cord_lat;
@@ -52,15 +48,14 @@ public class Cordinates {
 	@Column(name="south_cord_long")
 	private String south_cord_long;
 	
-	@Lob
-	@Column(name="south_image")
-	private byte[] southImage;
+	@Column(name="south_image", columnDefinition = "TEXT")
+	private String southImage;
 	
 	@Column(name="fpsid")
 	private String fpsid;
 
-
-
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -97,13 +92,13 @@ public class Cordinates {
 
 
 
-	public byte[] getEastImage() {
+	public String getEastImage() {
 		return eastImage;
 	}
 
 
 
-	public void setEastImage(byte[] eastImage) {
+	public void setEastImage(String eastImage) {
 		this.eastImage = eastImage;
 	}
 
@@ -133,13 +128,13 @@ public class Cordinates {
 
 
 
-	public byte[] getWestImage() {
+	public String getWestImage() {
 		return westImage;
 	}
 
 
 
-	public void setWestImage(byte[] westImage) {
+	public void setWestImage(String westImage) {
 		this.westImage = westImage;
 	}
 
@@ -169,13 +164,13 @@ public class Cordinates {
 
 
 
-	public byte[] getNorthImage() {
+	public String getNorthImage() {
 		return northImage;
 	}
 
 
 
-	public void setNorthImage(byte[] northImage) {
+	public void setNorthImage(String northImage) {
 		this.northImage = northImage;
 	}
 
@@ -205,13 +200,13 @@ public class Cordinates {
 
 
 
-	public byte[] getSouthImage() {
+	public String getSouthImage() {
 		return southImage;
 	}
 
 
 
-	public void setSouthImage(byte[] southImage) {
+	public void setSouthImage(String southImage) {
 		this.southImage = southImage;
 	}
 
@@ -227,11 +222,10 @@ public class Cordinates {
 		this.fpsid = fpsid;
 	}
 
-	
 
-	public Cordinates(Long id, String east_cord_lat, String east_cord_long, byte[] eastImage, String west_cord_lat,
-			String west_cord_long, byte[] westImage, String north_cord_lat, String north_cord_long, byte[] northImage,
-			String south_cord_lat, String south_cord_long, byte[] southImage, String fpsid) {
+	public Cordinates(Long id, String east_cord_lat, String east_cord_long, String eastImage, String west_cord_lat,
+			String west_cord_long, String westImage, String north_cord_lat, String north_cord_long, String northImage,
+			String south_cord_lat, String south_cord_long, String southImage, String fpsid) {
 		super();
 		this.id = id;
 		this.east_cord_lat = east_cord_lat;
