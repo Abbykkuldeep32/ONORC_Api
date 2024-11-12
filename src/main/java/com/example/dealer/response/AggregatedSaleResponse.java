@@ -3,12 +3,16 @@ package com.example.dealer.response;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class AggregatedSaleResponse {
 	
 	private Long id;
 	private String sale_state;
 	private String sale_district;
 	private String rationCardNo;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate transactionDate;
 	private String allocation_month;
 	private String allocation_year;

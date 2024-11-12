@@ -1,6 +1,8 @@
 package com.example.dealer.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ public class SaleFPS {
 		private String fpsid;
 		
 		@Column(name="transaction_date")
+		@JsonFormat(pattern = "dd/MM/yyyy")
 		private String transactionDate;
 		
 		@Column(name="allocation_month")
