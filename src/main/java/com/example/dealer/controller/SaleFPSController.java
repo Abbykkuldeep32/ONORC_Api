@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dealer.model.SaleFPS;
+import com.example.dealer.response.AggregatedSaleResponseTwo;
 import com.example.dealer.service.SaleFPSService;
 
 
@@ -26,10 +27,10 @@ public class SaleFPSController {
     private SaleFPSService salefpsService;
 	
     @GetMapping("/{fpsid}/{transactionDate}")
-    public ResponseEntity<List<SaleFPS>> getStockByFpsid(
+    public ResponseEntity<List<AggregatedSaleResponseTwo>> getStockByFpsid(
     		@PathVariable String fpsid,
     		@PathVariable String transactionDate){
-    	List<SaleFPS> fpssale= salefpsService.getStockByFpsid(fpsid, transactionDate);
+    	List<AggregatedSaleResponseTwo> fpssale= salefpsService.getStockByFpsid(fpsid, transactionDate);
         
         if (fpssale != null) {
         	return ResponseEntity.ok(fpssale);
