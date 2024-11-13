@@ -3,6 +3,7 @@ package com.example.dealer.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class SaleFPSController {
             if (fpsSale != null && !fpsSale.isEmpty()) {
                 return ResponseEntity.ok(fpsSale);
             } else {
-                return ResponseEntity.notFound().build(); // 404 if no data found
+                return ResponseEntity.ok(new ArrayList<>()); 
             }
 
         } catch (DateTimeParseException e) {
