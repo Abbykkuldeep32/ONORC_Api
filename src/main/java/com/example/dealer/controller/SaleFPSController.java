@@ -1,7 +1,9 @@
 package com.example.dealer.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +32,26 @@ public class SaleFPSController {
     public ResponseEntity<List<AggregatedSaleResponseTwo>> getStockByFpsid(
     		@PathVariable String fpsid,
     		@PathVariable String transactionDate){
-    	List<AggregatedSaleResponseTwo> fpssale= salefpsService.getStockByFpsid(fpsid, transactionDate);
-        
-        if (fpssale != null) {
-        	return ResponseEntity.ok(fpssale);
-        } else {
-            return ResponseEntity.notFound().build(); // Return 404 if not found
+    	
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        try {
+           
+            LocalDate formattedDate = LocalDate.parse(transactionDate, formatter);
+
+            // Fetch data from the service using the parsed LocalDate
+            List<AggregatedSaleResponseTwo> fpsSale = salefpsService.getStockByFpsid(fpsid, formattedDate);
+
+            if (fpsSale != null && !fpsSale.isEmpty()) {
+                return ResponseEntity.ok(fpsSale);
+            } else {
+                return ResponseEntity.notFound().build(); // 404 if no data found
+            }
+
+        } catch (DateTimeParseException e) {
+        	e.printStackTrace();
+            // Return 400 if the date format is incorrect
+            return ResponseEntity.badRequest().body(null);
         }
     }
     

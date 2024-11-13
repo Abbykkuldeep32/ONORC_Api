@@ -13,7 +13,7 @@ public class AggregatedSaleResponseTwo {
 	private String fpsid;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private String transactionDate;
+	private LocalDate transactionDate;
 	private String allocation_month;
 	private String allocation_year;
 	private String membername;
@@ -92,13 +92,13 @@ public class AggregatedSaleResponseTwo {
 
 
 
-	public String getTransactionDate() {
+	public LocalDate getTransactionDate() {
 		return transactionDate;
 	}
 
 
 
-	public void setTransactionDate(String transactionDate) {
+	public void setTransactionDate(LocalDate transactionDate) {
 		this.transactionDate = transactionDate;
 	}
 
@@ -283,7 +283,7 @@ public class AggregatedSaleResponseTwo {
 	}
 
 	public AggregatedSaleResponseTwo(Long id, String sale_state, String sale_district, String rationcardid,
-			String fpsid, String transactionDate, String allocation_month, String allocation_year, String membername,
+			String fpsid, LocalDate transactionDate, String allocation_month, String allocation_year, String membername,
 			String membernameII, String no_of_member, String card_type, String transaction_id,
 			String allocation_orderno, String auth_type, String home_fps_id, String home_district,
 			String home_state_name, String txn_type, String allocation_type, List<CommodityDetailTwo> commodities) {

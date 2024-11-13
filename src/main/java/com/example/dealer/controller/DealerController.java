@@ -8,12 +8,10 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +21,7 @@ import com.example.dealer.repository.DealerRepository;
 import com.example.dealer.service.DealerService;
 import com.example.dealer.service.OtpService;
 import com.example.dealer.service.TemporaryStoreService;
-import com.example.dealer.service.TokenBlacklistService;
 import com.example.dealer.util.JwtUtil;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Otp;

@@ -1,9 +1,9 @@
 package com.example.dealer.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class SaleFPSService {
 	@Autowired
     private SaleFPSRepository salefpsRepository;
 
-	public List<AggregatedSaleResponseTwo> getStockByFpsid(String fpsid, String transactionDate) {
+	public List<AggregatedSaleResponseTwo> getStockByFpsid(String fpsid, LocalDate transactionDate) {
 		
 		List<SaleFPS> sales = salefpsRepository.findByFpsidAndTransactionDate(fpsid, transactionDate);
 		

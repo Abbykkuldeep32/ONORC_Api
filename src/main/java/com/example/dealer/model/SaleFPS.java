@@ -1,6 +1,10 @@
 package com.example.dealer.model;
 
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -30,7 +34,8 @@ public class SaleFPS {
 		
 		@Column(name="transaction_date")
 		@JsonFormat(pattern = "dd/MM/yyyy")
-		private String transactionDate;
+		@DateTimeFormat(pattern = "dd/MM/yyyy")
+		private LocalDate transactionDate;
 		
 		@Column(name="allocation_month")
 		private String allocation_month;
@@ -126,7 +131,7 @@ public class SaleFPS {
 			this.fpsid = fpsid;
 		}
 
-		public String getTransaction_date() {
+		public LocalDate getTransaction_date() {
 //			DateTimeFormatter originalFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //	        LocalDateTime dateTime = LocalDateTime.parse(transactionDate, originalFormat);
 //	        LocalDate date = dateTime.toLocalDate();
@@ -135,7 +140,7 @@ public class SaleFPS {
 			return transactionDate;
 		}
 
-		public void setTransaction_date(String transactionDate) {
+		public void setTransaction_date(LocalDate transactionDate) {
 			this.transactionDate = transactionDate;
 		}
 
@@ -284,7 +289,7 @@ public class SaleFPS {
 		}
 
 		public SaleFPS(Long id, String sale_state, String sale_district, String rationcardid, String fpsid,
-				String transactionDate, String allocation_month, String allocation_year, String membername,
+				LocalDate transactionDate, String allocation_month, String allocation_year, String membername,
 				String membernameII, String no_of_member, String card_type, String transaction_id,
 				String allocation_orderno, String auth_type, String home_fps_id, String home_district,
 				String home_state_name, String txn_type, String comm_code, String commodity_name,
