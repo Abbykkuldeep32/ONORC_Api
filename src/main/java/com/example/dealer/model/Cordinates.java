@@ -33,9 +33,13 @@ public class Cordinates {
 	@Column(name="south_image", columnDefinition = "TEXT")
 	private String southImage;
 	
+	@Column(name="front_image", columnDefinition = "TEXT")
+	private String frontImage;
+	
 	@Column(name="fpsid")
 	private String fpsid;
 	
+
 	public Long getId() {
 		return id;
 	}
@@ -120,6 +124,18 @@ public class Cordinates {
 
 
 
+	public String getFrontImage() {
+		return frontImage;
+	}
+
+
+
+	public void setFrontImage(String frontImage) {
+		this.frontImage = frontImage;
+	}
+
+
+
 	public String getFpsid() {
 		return fpsid;
 	}
@@ -132,7 +148,7 @@ public class Cordinates {
 
 
 	public Cordinates(Long id, String cord_lat, String cord_long, String eastImage, String westImage, String northImage,
-			String southImage, String fpsid) {
+			String southImage, String frontImage, String fpsid) {
 		super();
 		this.id = id;
 		this.cord_lat = cord_lat;
@@ -141,8 +157,10 @@ public class Cordinates {
 		this.westImage = westImage;
 		this.northImage = northImage;
 		this.southImage = southImage;
+		this.frontImage = frontImage;
 		this.fpsid = fpsid;
 	}
+
 
 
 	public Cordinates() {

@@ -19,9 +19,6 @@ import com.example.dealer.response.AggregatedSaleResponseTwo;
 import com.example.dealer.service.SaleFPSService;
 
 
-
-
-
 @RestController
 @RequestMapping("/api/v1/sale")
 public class SaleFPSController {
