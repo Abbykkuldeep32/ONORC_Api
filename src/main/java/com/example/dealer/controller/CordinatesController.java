@@ -38,12 +38,27 @@ public class CordinatesController {
     		if (!existingCordinatesList.isEmpty()) {
                 // Update the first existing record (or loop through if multiple records need updating)
                 Cordinates updateCordinates = existingCordinatesList.get(0);
-                updateCordinates.setCord_lat(cordinates.getCord_lat());
-                updateCordinates.setCord_long(cordinates.getCord_long());
-                updateCordinates.setEastImage(cordinates.getEastImage());
-                updateCordinates.setWestImage(cordinates.getWestImage());
-                updateCordinates.setNorthImage(cordinates.getNorthImage());
-                updateCordinates.setSouthImage(cordinates.getSouthImage());
+                if (cordinates.getCord_lat() != null) {
+                    updateCordinates.setCord_lat(cordinates.getCord_lat());
+                }
+                if (cordinates.getCord_long() != null) {
+                    updateCordinates.setCord_long(cordinates.getCord_long());
+                }
+                if (cordinates.getEastImage() != null) {
+                    updateCordinates.setEastImage(cordinates.getEastImage());
+                }
+                if (cordinates.getWestImage() != null) {
+                    updateCordinates.setWestImage(cordinates.getWestImage());
+                }
+                if (cordinates.getNorthImage() != null) {
+                    updateCordinates.setNorthImage(cordinates.getNorthImage());
+                }
+                if (cordinates.getSouthImage() != null) {
+                    updateCordinates.setSouthImage(cordinates.getSouthImage());
+                }
+                if (cordinates.getFrontImage() != null) {
+                    updateCordinates.setFrontImage(cordinates.getFrontImage());
+                }
                 cordinates = updateCordinates; // Assign updated record to save
             }
     		
