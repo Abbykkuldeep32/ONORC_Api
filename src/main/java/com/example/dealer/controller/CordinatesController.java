@@ -1,6 +1,7 @@
 package com.example.dealer.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,22 @@ public class CordinatesController {
     @PostMapping("/save")
     public ResponseEntity<SaveResponse> saveCordinates(@RequestBody Cordinates cordinates) {
     	try {
+    		
+    		List<Cordinates> existingCordinatesList = cordinatesRepository.findByFpsid(cordinates.getFpsid());
             
+    		if (!existingCordinatesList.isEmpty()) {
+                // Update the first existing record (or loop through if multiple records need updating)
+                Cordinates updateCordinates = existingCordinatesList.get(0);
+                updateCordinates.setCord_lat(cordinates.getCord_lat());
+                updateCordinates.setCord_long(cordinates.getCord_long());
+                updateCordinates.setEastImage(cordinates.getEastImage());
+                updateCordinates.setWestImage(cordinates.getWestImage());
+                updateCordinates.setNorthImage(cordinates.getNorthImage());
+                updateCordinates.setSouthImage(cordinates.getSouthImage());
+                cordinates = updateCordinates; // Assign updated record to save
+            }
+    		
+    		
         Cordinates savedCordinates = cordinatesRepository.save(cordinates);
         String message = "Cordinates saved successfully with ID: " + savedCordinates.getId();
         SaveResponse response = new SaveResponse(true,message);
