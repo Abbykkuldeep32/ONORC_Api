@@ -14,7 +14,7 @@ import com.example.dealer.response.SaveResponse;
 import com.example.dealer.service.MpinService;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/public/api/v1/")
 public class MpinController {
 	
 	@Autowired

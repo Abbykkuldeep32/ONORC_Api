@@ -27,7 +27,7 @@ import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Otp;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/public/api/v1/")
 public class DealerController {
 	
 	@Autowired

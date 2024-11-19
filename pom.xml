@@ -127,6 +127,10 @@
 		    <version>4.0.1</version> <!-- Use a version compatible with your server -->
 		    <scope>provided</scope>
 		</dependency>
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-security</artifactId>
+	    </dependency>
 	</dependencies>
 
 	<build>
