@@ -121,6 +121,12 @@
 		    <artifactId>logback-classic</artifactId>
 		    <version>1.5.8</version> <!-- Use latest version -->
 		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version> <!-- Use a version compatible with your server -->
+		    <scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
