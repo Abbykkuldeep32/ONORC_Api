@@ -19,14 +19,10 @@ import com.example.dealer.model.Sale;
 import com.example.dealer.response.AggregatedSaleResponse;
 import com.example.dealer.service.PdfService;
 import com.example.dealer.service.SaleService;
+import com.example.dealer.util.AESUtil;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
 
 @RestController
 @RequestMapping("/api/v1/saledetail")
@@ -37,9 +33,6 @@ public class SaleController {
 	
 	@Autowired
     private PdfService pdfService;
-	
-	private static final String SECRET_KEY = "dGhpc2lzYSByYW5kb21zZWNyZXRrZXkuLi5pbmNsdWRldXNlZm9yc2VjdXJpdHk="; // Must match React key
-    private static final String ALGORITHM = "AES/CBC/PKCS5Padding";
 
 
     @GetMapping("/{rationCardNo}/{transactionDate}")
@@ -59,10 +52,9 @@ public class SaleController {
     
     @GetMapping("/generate-receipt/{encryptedId}")
     public ResponseEntity<byte[]> generatePdf(@PathVariable("encryptedId") String encryptedId) throws Exception{
-        
-    	Long id = decryptEncryptedId(encryptedId);
-    	System.out.println("Decrypted ID: " + id);
-    	
+    	try {
+    	String decryptedId = AESUtil.decrypt(encryptedId);
+        Long id = Long.parseLong(decryptedId);
     	byte[] pdf = pdfService.generateReceiptPdf(id);
 
         HttpHeaders headers = new HttpHeaders();
@@ -70,34 +62,13 @@ public class SaleController {
         headers.setContentDispositionFormData("filename", "receipt.pdf");
 
         return ResponseEntity.ok().headers(headers).body(pdf);
+    	}
+    	catch(Exception e) {
+    		e.printStackTrace();
+    		return ResponseEntity.badRequest().body("Decryption failed".getBytes());
+    	}
     }
     
-    private Long decryptEncryptedId(String encryptedId) throws Exception{
-    	String[] parts = encryptedId.split(":");
-        if (parts.length != 2) {
-            throw new IllegalArgumentException("Invalid encrypted ID format");
-        }
-
-        String ivBase64 = parts[0];
-        String cipherTextBase64 = parts[1];
-
-        byte[] iv = Base64.getDecoder().decode(ivBase64);
-        byte[] cipherText = Base64.getDecoder().decode(cipherTextBase64);
-
-        // Prepare AES key and IV
-        SecretKeySpec keySpec = new SecretKeySpec(SECRET_KEY.getBytes(), "AES");
-        IvParameterSpec ivSpec = new IvParameterSpec(iv);
-
-        Cipher cipher = Cipher.getInstance(ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
-
-        byte[] decryptedBytes = cipher.doFinal(cipherText);
-
-        String decryptedString = new String(decryptedBytes);
-        
-        return Long.parseLong(decryptedString);
-	}
-
 	@PostMapping("/search")
     public ResponseEntity<List<Sale>> getSaleByMemberName(
     		@RequestBody Sale ssale){
