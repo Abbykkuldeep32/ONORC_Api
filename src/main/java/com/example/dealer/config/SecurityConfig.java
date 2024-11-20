@@ -23,7 +23,8 @@ public class SecurityConfig {
          .cors()
          .and()
          .authorizeHttpRequests()
-             .requestMatchers("/public/**").permitAll()  
+             .requestMatchers("/public/**").permitAll()
+             .requestMatchers("/api/v1/saledetail/generate-receipt/**").permitAll()
              .anyRequest().authenticated()
              .and()
     	 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
