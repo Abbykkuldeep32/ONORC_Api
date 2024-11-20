@@ -19,7 +19,6 @@ import com.example.dealer.model.Sale;
 import com.example.dealer.response.AggregatedSaleResponse;
 import com.example.dealer.service.PdfService;
 import com.example.dealer.service.SaleService;
-import com.example.dealer.util.AESUtil;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -50,11 +49,9 @@ public class SaleController {
         }
     }
     
-    @GetMapping("/generate-receipt/{encryptedId}")
-    public ResponseEntity<byte[]> generatePdf(@PathVariable("encryptedId") String encryptedId) throws Exception{
-    	try {
-    	String decryptedId = AESUtil.decrypt(encryptedId);
-        Long id = Long.parseLong(decryptedId);
+    @GetMapping("/generate-receipt/{id}")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id) throws Exception{
+    	
     	byte[] pdf = pdfService.generateReceiptPdf(id);
 
         HttpHeaders headers = new HttpHeaders();
@@ -62,11 +59,6 @@ public class SaleController {
         headers.setContentDispositionFormData("filename", "receipt.pdf");
 
         return ResponseEntity.ok().headers(headers).body(pdf);
-    	}
-    	catch(Exception e) {
-    		e.printStackTrace();
-    		return ResponseEntity.badRequest().body("Decryption failed".getBytes());
-    	}
     }
     
 	@PostMapping("/search")
