@@ -19,4 +19,9 @@ public class RatingService {
 		return ratingRepository.findByFpsid(fpsid);
 	}
 	
+	public List<Rating> getRatingsWithoutWords(String fpsid) {
+       
+        return ratingRepository.findRatingsWithoutWordsByFpsid(fpsid);
+    }
+	
 }

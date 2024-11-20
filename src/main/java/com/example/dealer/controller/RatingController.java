@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.dealer.model.Rating;
@@ -21,11 +22,18 @@ public class RatingController {
 	
 	@GetMapping("/{fpsid}")
     public ResponseEntity<List<Rating>> getRatingByFpsid(
-    		@PathVariable String fpsid){
-    	List<Rating> rating= ratingService.getRatingByFpsid(fpsid);
-        
-        if (rating != null) {
-        	return ResponseEntity.ok(rating);
+    		@PathVariable String fpsid,
+    		@RequestParam(required = false, defaultValue = "false") boolean excludeWords){
+		List<Rating> ratings;
+
+        if (excludeWords) {
+            ratings = ratingService.getRatingsWithoutWords(fpsid);
+        } else {
+            ratings = ratingService.getRatingByFpsid(fpsid);
+        }
+
+        if (ratings != null && !ratings.isEmpty()) {
+            return ResponseEntity.ok(ratings);
         } else {
             return ResponseEntity.notFound().build();
         }
