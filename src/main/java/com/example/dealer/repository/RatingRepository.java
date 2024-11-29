@@ -16,4 +16,12 @@ public interface RatingRepository extends JpaRepository<Rating,Short>{
 	@Query("SELECT r FROM Rating r WHERE r.fpsid = :fpsid AND " +
 		       "NOT EXISTS (SELECT w FROM Word w WHERE r.message LIKE CONCAT('%', w.word, '%'))")
 	    List<Rating> findRatingsWithoutWordsByFpsid(@Param("fpsid") String fpsid);
+	
+	
+	@Query("SELECT r.fpsid, f.fpsowner, AVG(r.star) as avgStar " +
+	           "FROM Rating r " +
+	           "JOIN Dealer f ON r.fpsid = f.fpsid " +
+	           "GROUP BY r.fpsid, f.fpsowner " +
+	           "ORDER BY avgStar DESC")
+	List<Object[]> findTopRatedFPS();
 }

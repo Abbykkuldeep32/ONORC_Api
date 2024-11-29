@@ -1,6 +1,7 @@
 package com.example.dealer.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,11 @@ public class RatingController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+	
+	@GetMapping("/top-rated-fps")
+    public List<Map<String, Object>> getTopRatedFPS() {
+        return ratingService.getTopRatedFPS();
     }
 	
 }
