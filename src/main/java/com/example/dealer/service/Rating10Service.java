@@ -13,7 +13,7 @@ public class Rating10Service {
 	@Autowired
     private Rating10Repository rating10Repository;
 	
-	public List<Rating10> getTop10UsersByAverageRating() {
-        return rating10Repository.findTop10UsersByAverageRating();
+	public List<Rating10> getTop10UsersByAverageRating(Long state,String district) {
+        return rating10Repository.findTop10UsersByAverageRating(state,district);
     }
 }
