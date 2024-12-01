@@ -277,7 +277,7 @@ public class AggregatedSaleResponse {
 			return commodity_name;
 		}
 		public void setCommodity_name(String commodity_name) {
-			this.commodity_name = commodity_name;
+			this.commodity_name = capitalizeFirstLetter(commodity_name);
 		}
 		public String getDistributed_quanitity() {
 			return distributed_quanitity;
@@ -296,10 +296,17 @@ public class AggregatedSaleResponse {
 				String entitlement_quanitity) {
 			super();
 			this.comm_code = comm_code;
-			this.commodity_name = commodity_name;
+			this.commodity_name = capitalizeFirstLetter(commodity_name);
 			this.distributed_quanitity = distributed_quanitity;
 			this.entitlement_quanitity = entitlement_quanitity;
 		}
+		
+		private static String capitalizeFirstLetter(String input) {
+	        if (input == null || input.isEmpty()) {
+	            return input;
+	        }
+	        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+	    }
 
         
     }
