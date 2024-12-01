@@ -19,9 +19,9 @@ public interface SaleRepository extends JpaRepository<Sale,Long>{
 
 	Sale findById(long id);
 	
-	@Query(value = "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY s.rationcardid ORDER BY s.id) AS row_num " +
+	@Query(value = "SELECT  FROM (SELECT , ROW_NUMBER() OVER (PARTITION BY s.rationcardid ORDER BY s.id) AS row_num " +
             "FROM onorc_sale_txn_data s " +
-            "WHERE s.membername ILIKE CONCAT('%', :membername, '%') AS ranked " +
+            "WHERE s.membername ILIKE :membername) AS ranked " +
             "WHERE ranked.row_num = 1", nativeQuery = true)
 	List<Sale> findByMembername(@Param("membername") String membername);
 	
