@@ -14,6 +14,7 @@ public class AggregatedSaleResponse {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate transactionDate;
+	
 	private String allocation_month;
 	private String allocation_year;
 	private String membername;

@@ -3,6 +3,7 @@ package com.example.dealer.service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -78,7 +79,9 @@ public class PdfService {
         contentStream.newLineAtOffset(50, 690);
         contentStream.showText("Transaction ID: " + receipt.getTransaction_id());
         contentStream.newLineAtOffset(0, -15);
-        contentStream.showText("Transaction Date: " + receipt.getTransaction_date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = receipt.getTransaction_date().format(formatter);
+        contentStream.showText("Transaction Date: " + formattedDate);
         contentStream.newLineAtOffset(0, -15);
         contentStream.showText("Ration Card Number: " + receipt.getRationcardid());
         contentStream.newLineAtOffset(0, -15);
