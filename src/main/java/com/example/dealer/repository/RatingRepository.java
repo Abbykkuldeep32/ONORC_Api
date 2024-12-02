@@ -18,10 +18,19 @@ public interface RatingRepository extends JpaRepository<Rating,Short>{
 	    List<Rating> findRatingsWithoutWordsByFpsid(@Param("fpsid") String fpsid);
 	
 	
-	@Query("SELECT r.fpsid, f.fpsowner, AVG(r.star) as avgStar " +
-	           "FROM Rating r " +
-	           "JOIN Dealer f ON r.fpsid = f.fpsid " +
-	           "GROUP BY r.fpsid, f.fpsowner " +
-	           "ORDER BY avgStar DESC")
-	List<Object[]> findTopRatedFPS();
+	@Query(value = "SELECT r.fpsid, d.fpsowner, AVG(r.star) " +
+            "FROM Rating r " +
+            "JOIN Dealer d ON r.fpsid = d.fpsid " +
+            "WHERE r.state_code = :statecode AND r.district_code = :districtcode " +
+            "GROUP BY r.fpsid, d.fpsowner " +
+            "ORDER BY AVG(r.star) DESC")
+	List<Object[]> findTop10UsersByAverageRating(@Param("statecode") Long statecode, @Param("districtcode") String districtcode);
+	
+	@Query(value = "SELECT r.fpsid, d.fpsowner, AVG(r.star) " +
+            "FROM Rating r " +
+            "JOIN Dealer d ON r.fpsid = d.fpsid " +
+            "WHERE r.state_code = :statecode AND r.district_code = :districtcode " +
+            "GROUP BY r.fpsid, d.fpsowner " +
+            "ORDER BY AVG(r.star) ASC")
+	List<Object[]> findLow10UsersByAverageRating(@Param("statecode") Long statecode, @Param("districtcode") String districtcode);
 }

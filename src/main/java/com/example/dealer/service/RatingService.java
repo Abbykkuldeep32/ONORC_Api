@@ -27,8 +27,29 @@ public class RatingService {
         return ratingRepository.findRatingsWithoutWordsByFpsid(fpsid);
     }
 	
-	public List<Map<String, Object>> getTopRatedFPS() {
-		List<Object[]> results = ratingRepository.findTopRatedFPS();
+	public List<Map<String, Object>> getTop10UsersByAverageRating(Long statecode,String districtcode) {
+		List<Object[]> results = ratingRepository.findTop10UsersByAverageRating(statecode,districtcode);
+		
+		if (results.isEmpty()) {
+	        System.out.println("No results found for statecode: " + statecode + " and districtcode: " + districtcode);
+	    }
+		
+		return results.stream().map(row -> {
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("fpsId", row[0]);
+	        map.put("fpsname", row[1]);
+	        map.put("avgStar", row[2]);
+	        return map;
+	    }).collect(Collectors.toList());
+    }
+	
+	public List<Map<String, Object>> getLow10UsersByAverageRating(Long statecode,String districtcode) {
+		List<Object[]> results = ratingRepository.findLow10UsersByAverageRating(statecode,districtcode);
+		
+		if (results.isEmpty()) {
+	        System.out.println("No results found for statecode: " + statecode + " and districtcode: " + districtcode);
+	    }
+		
 		return results.stream().map(row -> {
 	        Map<String, Object> map = new HashMap<>();
 	        map.put("fpsId", row[0]);

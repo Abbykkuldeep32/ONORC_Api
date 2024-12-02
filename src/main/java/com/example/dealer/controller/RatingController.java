@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,9 +42,14 @@ public class RatingController {
         }
     }
 	
-	@GetMapping("/top-rated-fps")
-    public List<Map<String, Object>> getTopRatedFPS() {
-        return ratingService.getTopRatedFPS();
+	@PostMapping("/top-rated-fps")
+    public List<Map<String, Object>> getTopUsersByRating(@RequestBody Rating rat) {
+        return ratingService.getTop10UsersByAverageRating(rat.getState_code(),rat.getDistrict_code());
+    }
+	
+	@PostMapping("/low-rated-fps")
+    public List<Map<String, Object>> getLowUsersByRating(@RequestBody Rating rat) {
+        return ratingService.getLow10UsersByAverageRating(rat.getState_code(),rat.getDistrict_code());
     }
 	
 }
