@@ -28,9 +28,8 @@ public class PdfService {
 	}
 
 
-	public byte[] generateReceiptPdf(Long id) throws IOException {
-        Sale receipt = saleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Receipt not found"));
+	public byte[] generateReceiptPdf(Sale receipt) throws IOException {
+		
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();

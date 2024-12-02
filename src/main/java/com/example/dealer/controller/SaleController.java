@@ -1,6 +1,8 @@
 package com.example.dealer.controller;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.example.dealer.model.Sale;
+import com.example.dealer.repository.SaleRepository;
 import com.example.dealer.response.AggregatedSaleResponse;
 import com.example.dealer.service.PdfService;
 import com.example.dealer.service.SaleService;
@@ -32,6 +35,9 @@ public class SaleController {
 	
 	@Autowired
     private PdfService pdfService;
+	
+	@Autowired
+	private SaleRepository saleRepository;
 
 
     @GetMapping("/{rationCardNo}/{transactionDate}")
@@ -49,10 +55,15 @@ public class SaleController {
         }
     }
     
-    @GetMapping("/generate-receipt/{id}")
-    public ResponseEntity<byte[]> generatePdf(@PathVariable("id") Long id) throws Exception{
+    @GetMapping("/generate-receipt/{encryptedId}")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable("encryptedId") String encryptedId) throws Exception{
     	
-    	byte[] pdf = pdfService.generateReceiptPdf(id);
+    	//String encryptedId = hashId(id);
+    	
+    	Sale receipt = saleRepository.findReceiptByEncryptedId(encryptedId)
+                .orElseThrow(() -> new RuntimeException("Receipt not found"));
+    	
+    	byte[] pdf = pdfService.generateReceiptPdf(receipt);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
@@ -61,6 +72,23 @@ public class SaleController {
         return ResponseEntity.ok().headers(headers).body(pdf);
     }
 	
+	private String hashId(Long id) {
+		try {
+	        MessageDigest md = MessageDigest.getInstance("MD5");
+	        md.update(id.toString().getBytes());
+	        byte[] digest = md.digest();
+
+	        // Convert byte array to hex string
+	        StringBuilder hexString = new StringBuilder();
+	        for (byte b : digest) {
+	            hexString.append(String.format("%02x", b));
+	        }
+	        return hexString.toString();
+	    } catch (NoSuchAlgorithmException e) {
+	        throw new RuntimeException("Error generating MD5 hash", e);
+	    }
+	}
+
 	@PostMapping("/searchbyname")
 	public ResponseEntity<List<Sale>> getSaleByMemberName(
     		@RequestBody Sale ssale){

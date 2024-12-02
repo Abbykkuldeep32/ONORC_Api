@@ -1,6 +1,7 @@
 package com.example.dealer.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,5 +25,9 @@ public interface SaleRepository extends JpaRepository<Sale,Long>{
             "WHERE s.membername ILIKE :membername) AS ranked " +
             "WHERE ranked.row_num = 1", nativeQuery = true)
 	List<Sale> findByMembername(@Param("membername") String membername);
+
+	@Query(value = "SELECT * FROM onorc_sale_txn_data WHERE MD5(CAST(id AS CHAR)) = :encryptedId", nativeQuery = true)
+	Optional<Sale> findReceiptByEncryptedId(@Param("encryptedId") String encryptedId);
+
 	
 }
