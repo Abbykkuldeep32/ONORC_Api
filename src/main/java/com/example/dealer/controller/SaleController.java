@@ -60,10 +60,11 @@ public class SaleController {
 
         return ResponseEntity.ok().headers(headers).body(pdf);
     }
-    
-	@PostMapping("/search")
-    public ResponseEntity<List<Sale>> getSaleByMemberName(
+	
+	@PostMapping("/searchbyname")
+	public ResponseEntity<List<Sale>> getSaleByMemberName(
     		@RequestBody Sale ssale){
+		System.out.print(ssale.getMembername());
     	List<Sale> sale= saleService.getSaleByMemberName(ssale.getMembername());
         
         if (sale != null) {

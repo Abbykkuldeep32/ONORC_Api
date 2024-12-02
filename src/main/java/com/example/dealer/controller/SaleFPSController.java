@@ -39,6 +39,8 @@ public class SaleFPSController {
 
             // Fetch data from the service using the parsed LocalDate
             List<AggregatedSaleResponseTwo> fpsSale = salefpsService.getStockByFpsid(fpsid, formattedDate);
+            
+            
 
             if (fpsSale != null && !fpsSale.isEmpty()) {
                 return ResponseEntity.ok(fpsSale);

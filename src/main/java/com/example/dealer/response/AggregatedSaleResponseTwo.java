@@ -28,6 +28,9 @@ public class AggregatedSaleResponseTwo {
 	private String home_state_name;
 	private String txn_type;
 	private String allocation_type;
+	private double totalDistributedQuantity;
+	private double totalWheatSale;
+	private double totalRiceSale;
 	
 	
 	private List<CommodityDetailTwo> commodities;
@@ -270,13 +273,41 @@ public class AggregatedSaleResponseTwo {
 		this.allocation_type = allocation_type;
 	}
 
+	public double getTotalDistributedQuantity() {
+	    return totalDistributedQuantity;
+	}
+
+	public void setTotalDistributedQuantity(double totalDistributedQuantity) {
+	    this.totalDistributedQuantity = totalDistributedQuantity;
+	}
+	
+	public double getTotalWheatSale() {
+        return totalWheatSale;
+    }
+
+    public void setTotalWheatSale(double totalWheatSale) {
+        this.totalWheatSale = totalWheatSale;
+    }
+    
+    
+
+	public double getTotalRiceSale() {
+		return totalRiceSale;
+	}
+
+
+
+	public void setTotalRiceSale(double totalRiceSale) {
+		this.totalRiceSale = totalRiceSale;
+	}
+
 
 
 	public List<CommodityDetailTwo> getCommodities() {
 		return commodities;
 	}
 
-
+	
 
 	public void setCommodities(List<CommodityDetailTwo> commodities) {
 		this.commodities = commodities;
@@ -286,7 +317,7 @@ public class AggregatedSaleResponseTwo {
 			String fpsid, LocalDate transactionDate, String allocation_month, String allocation_year, String membername,
 			String membernameII, String no_of_member, String card_type, String transaction_id,
 			String allocation_orderno, String auth_type, String home_fps_id, String home_district,
-			String home_state_name, String txn_type, String allocation_type, List<CommodityDetailTwo> commodities) {
+			String home_state_name, String txn_type, String allocation_type, List<CommodityDetailTwo> commodities,double totalWheatSale, double totalRiceSale) {
 		super();
 		this.id = id;
 		this.sale_state = sale_state;
@@ -309,6 +340,8 @@ public class AggregatedSaleResponseTwo {
 		this.txn_type = txn_type;
 		this.allocation_type = allocation_type;
 		this.commodities = commodities;
+		this.totalWheatSale = totalWheatSale;
+		this.totalRiceSale = totalRiceSale;
 	}
 	
 	public static class CommodityDetailTwo {

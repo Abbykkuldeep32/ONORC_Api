@@ -27,6 +27,10 @@ public class SaleFPSService {
 	        return Collections.emptyList(); // Return an empty list if no data is found
 	    }
 		
+		// Calculate total wheat sale for all ration cards
+	    double totalWheatSale = getTotalWheatSale(sales);
+	    double totalRiceSale = getTotalRiceSale(sales);
+		
 		Map<String, List<SaleFPS>> groupedByRationCardNo = sales.stream()
 	            .collect(Collectors.groupingBy(SaleFPS::getRationcardid));
 		
@@ -43,9 +47,16 @@ public class SaleFPSService {
 	                                sale.getDistributed_quantity(),
 	                                sale.getEntitlement_quantity()))
 	                        .collect(Collectors.toList());
-
+	                
+	             // Sum the distributed quantities for wheat and rice
+	                double totalDistributedQuantity = entry.getValue().stream()
+	                        .filter(sale -> "wheat".equalsIgnoreCase(sale.getCommodity_name()) || 
+	                                        "rice".equalsIgnoreCase(sale.getCommodity_name()))
+	                        .mapToDouble(sale -> Double.parseDouble(sale.getDistributed_quantity()))
+	                        .sum();
+	                
 	                // Create AggregatedSaleResponseTwo with the combined commodities
-	                return new AggregatedSaleResponseTwo(
+	                AggregatedSaleResponseTwo response = new AggregatedSaleResponseTwo(
 	                        baseSale.getId(),
 	                        baseSale.getSale_state(),
 	                        baseSale.getSale_district(),
@@ -66,14 +77,35 @@ public class SaleFPSService {
 	                        baseSale.getHome_state_name(),
 	                        baseSale.getTxn_type(),
 	                        baseSale.getAllocation_type(),
-	                        commodities
+	                        commodities,
+	                        totalWheatSale,
+	                        totalRiceSale
 	                );
+	                
+	                response.setTotalDistributedQuantity(totalDistributedQuantity);
+
+	                return response;
+	                
 	            })
 	            .collect(Collectors.toList());
-
+		//System.out.println("Total Wheat Sale across all Ration Cards: " + totalWheatSale);
 	    return responseList;
 	}
 	
+	private double getTotalRiceSale(List<SaleFPS> sales) {
+		return sales.stream()
+	            .filter(sale -> "rice".equalsIgnoreCase(sale.getCommodity_name())) // Filter only rice
+	            .mapToDouble(sale -> Double.parseDouble(sale.getDistributed_quantity())) // Convert to double and sum
+	            .sum();
+	}
+
+	private double getTotalWheatSale(List<SaleFPS> sales) {
+		return sales.stream()
+	            .filter(sale -> "wheat".equalsIgnoreCase(sale.getCommodity_name())) // Filter only wheat
+	            .mapToDouble(sale -> Double.parseDouble(sale.getDistributed_quantity())) // Convert to double and sum
+	            .sum();
+	}
+
 	public List<SaleFPS> getStockByRationCardNo(String fpsid, String rationcardid) {
 		
 		return salefpsRepository.findFirstByFpsidAndRationcardid(fpsid, rationcardid);
