@@ -23,7 +23,7 @@ public class SecurityConfig {
          .cors()
          .and()
          .authorizeHttpRequests()
-             .requestMatchers("/public/api/v1/**").permitAll()
+             .requestMatchers("/public/**").permitAll()
              .requestMatchers("/api/v1/saledetail/generate-receipt/**").permitAll()
              .anyRequest().authenticated()
              .and()
