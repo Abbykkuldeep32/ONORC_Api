@@ -17,7 +17,7 @@ public class OtpService {
 
 	    public String generateOtp() {
 	        // Generate a 6-digit OTP
-	        return String.valueOf((int) (Math.random() * 900000) + 100000);
+	        return String.valueOf((int) (Math.random() * 9000) + 1000);
 	    }
 
 	    public void sendOtp(String mobileNo, String otp) {
