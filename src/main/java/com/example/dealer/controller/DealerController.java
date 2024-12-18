@@ -71,7 +71,7 @@ public class DealerController {
         	otpService.sendOtp(userRequest.getMobileno(), otp);
         	otpService.storeOtp(userRequest.getMobileno(), otp);
         	
-        	tempStoreService.storeFpsData(userRequest.getMobileno(), entityData);
+        	tempStoreService.storeFpsData(userRequest.getMobileno(), entityData, role);
         	
         	Map<String, Object> response = new HashMap<>();
             response.put("status", true);
@@ -96,13 +96,16 @@ public class DealerController {
 	    boolean isOtpValid = otpService.verifyOtp(otpRequest.getMobileNo(), otpRequest.getOtp());
 	    
 	    if (isOtpValid) {
-	    	List<?> entityData = tempStoreService.getFpsData(otpRequest.getMobileNo());
+	    	Map<String, Object> storedData = tempStoreService.getFpsData(otpRequest.getMobileNo());
+	        List<?> entityData = (List<?>) storedData.get("data");
+	        String role = (String) storedData.get("role");
 	    	String token = jwtUtil.generateToken(otpRequest.getMobileNo());
 	        Map<String, Object> response = new HashMap<>();
 	        response.put("status", true);
 	        response.put("message", "OTP verified successfully");
 	        response.put("token", token);
 	        response.put("data", entityData);
+	        response.put("role", role);
 	        tempStoreService.clearFpsData(otpRequest.getMobileNo());
 	        return ResponseEntity.ok(response);
 	        

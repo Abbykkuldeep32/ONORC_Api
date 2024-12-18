@@ -1,5 +1,6 @@
 package com.example.dealer.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,14 +14,17 @@ import com.example.dealer.model.Dealer;
 
 @Service
 public class TemporaryStoreService {
-	private final Map<String, List<?>> temporaryFpsStore = new ConcurrentHashMap<>();
+	private final Map<String, Map<String, Object>> temporaryFpsStore = new ConcurrentHashMap<>();
 
-    public void storeFpsData(String mobileNo, List<?> entityData) {
-        temporaryFpsStore.put(mobileNo, entityData);
+    public void storeFpsData(String mobileNo, List<?> entityData, String role) {
+    	Map<String, Object> store = new HashMap<>();
+        store.put("data", entityData);
+        store.put("role", role);
+        temporaryFpsStore.put(mobileNo, store);
         scheduleDataExpiration(mobileNo, 5, TimeUnit.MINUTES);
     }
 
-    public List<?> getFpsData(String mobileNo) {
+    public Map<String, Object> getFpsData(String mobileNo) {
         return temporaryFpsStore.get(mobileNo);
     }
 
