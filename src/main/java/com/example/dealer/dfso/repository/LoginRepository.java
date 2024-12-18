@@ -8,8 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.dealer.dfso.model.Login;
 
+
 public interface LoginRepository extends JpaRepository<Login,Long>{
 	
 	@Query("SELECT s FROM Login s WHERE s.statename = :statename AND s.mobileno = :mobileno")
     List<Login> findByStateAndMobileNumber(@Param("statename") String state, @Param("mobileno") String mobileno);
+	
+	@Query("SELECT s FROM Login s WHERE s.mobileno = :mobileno")
+    List<Login> findByMobileNo(@Param("mobileno") String mobileno);
 }

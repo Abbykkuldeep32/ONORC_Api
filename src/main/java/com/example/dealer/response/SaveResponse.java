@@ -3,7 +3,6 @@ package com.example.dealer.response;
 public class SaveResponse {
 	private boolean status;
 	private String message;
-    //private Grievance grievance;
 
     // Getters and Setters
     public boolean isStatus() {

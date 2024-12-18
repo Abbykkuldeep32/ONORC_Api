@@ -22,7 +22,7 @@ public class MpinController {
 	
 	@PostMapping("/saveMpin")
     public SaveResponse saveMpin(@RequestBody Mpin mpin) {
-        return mpinService.saveMpinIfMobileDoesNotExist(mpin.getMobileNo(), mpin.getMpin(), mpin.getDevice());
+        return mpinService.saveMpinIfMobileDoesNotExist(mpin.getMobileNo(), mpin.getMpin(), mpin.getDevice(),mpin.getRole());
     }
 	
 	@GetMapping("/loginMpin")
@@ -37,7 +37,7 @@ public class MpinController {
 	
 	@PostMapping("/verifyMpin")
 	public ResponseEntity<LoginResponse> verifyMpin(@RequestBody Mpin mpin) {
-		return mpinService.VerifyMpinByMpinAndDevice(mpin.getMpin(),mpin.getDevice());
+		return mpinService.VerifyMpinByMpinAndDevice(mpin.getMpin(),mpin.getDevice(),mpin.getRole());
 	}
 	
 	@PostMapping("/forgetMpin")

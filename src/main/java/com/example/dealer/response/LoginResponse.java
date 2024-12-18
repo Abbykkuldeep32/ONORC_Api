@@ -7,7 +7,7 @@ import com.example.dealer.model.Dealer;
 public class LoginResponse {
 	private boolean status;
 	private String message;
-    private List<Dealer> data;
+    private List<?> data;
     private String token;
 	public boolean isStatus() {
 		return status;
@@ -21,10 +21,10 @@ public class LoginResponse {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public List<Dealer> getData() {
+	public List<?> getData() {
 		return data;
 	}
-	public void setData(List<Dealer> data) {
+	public void setData(List<?> data) {
 		this.data = data;
 	}
 	public String getToken() {
@@ -33,7 +33,7 @@ public class LoginResponse {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public LoginResponse(boolean status, String message, List<Dealer> data, String token) {
+	public LoginResponse(boolean status, String message, List<?> data, String token) {
 		super();
 		this.status = status;
 		this.message = message;

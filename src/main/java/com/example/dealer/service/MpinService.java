@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.dealer.dfso.repository.LoginRepository;
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Mpin;
 import com.example.dealer.repository.DealerRepository;
@@ -30,11 +31,14 @@ public class MpinService {
 	DealerRepository dealerRepository;
 	
 	@Autowired
+	LoginRepository loginRepository;
+	
+	@Autowired
     JwtUtil jwtUtil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(MpinService.class);
 	
-	public SaveResponse saveMpinIfMobileDoesNotExist(String mobileNo, String mpin, String device) {
+	public SaveResponse saveMpinIfMobileDoesNotExist(String mobileNo, String mpin, String device, String role) {
 		
         Optional<Mpin> existingUser = mpinRepository.findByMobileNo(mobileNo);
         
@@ -43,6 +47,7 @@ public class MpinService {
         	Mpin userToUpdate = existingUser.get();
             userToUpdate.setMpin(mpin);
             userToUpdate.setDevice(device);
+            userToUpdate.setRole(role);
             userToUpdate.setUpdated_at(LocalDateTime.now());
             mpinRepository.save(userToUpdate);
         	return new SaveResponse(true, "MPIN updated successfully.");
@@ -52,6 +57,7 @@ public class MpinService {
         newUser.setMobileNo(mobileNo);
         newUser.setMpin(mpin);
         newUser.setDevice(device);
+        newUser.setRole(role);
         mpinRepository.save(newUser);
         return new SaveResponse(true, "MPIN saved successfully.");
     }
@@ -92,14 +98,23 @@ public class MpinService {
 		
 	}
 	
-	public ResponseEntity<LoginResponse> VerifyMpinByMpinAndDevice(String Mpin,String device) {
+	public ResponseEntity<LoginResponse> VerifyMpinByMpinAndDevice(String Mpin,String device,String role) {
 		
 		Optional<Mpin> verify = mpinRepository.findByMpinAndDevice(Mpin, device);
 		
 		if(verify.isPresent()) {
+			List<?> data;
 			String mobileNo = verify.get().getMobileNo();
 			String token = jwtUtil.generateToken(mobileNo);
-			List<Dealer> data = dealerRepository.findByMobileNo(mobileNo);
+			
+			if ("DEALER".equalsIgnoreCase(role)) {
+	            data = dealerRepository.findByMobileNo(mobileNo);
+	        } else if ("DFSO".equalsIgnoreCase(role)) {
+	            data = loginRepository.findByMobileNo(mobileNo);
+	        } else {
+	            return ResponseEntity.ok(new LoginResponse(false, "Invalid role", null, null));
+	        }
+			
 			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",data,token));
 		}
 		

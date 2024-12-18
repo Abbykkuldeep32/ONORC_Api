@@ -34,7 +34,17 @@ public class Mpin {
     
     @Column(name = "device_id" , nullable = false)
     private String device;
+    
+    @Column(name = "role" , nullable = false)
+    private String role;
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     
 	public String getDevice() {
 		return device;
@@ -85,7 +95,7 @@ public class Mpin {
 	}
     
     public Mpin(Long id, String mobileNo, String mpin, LocalDateTime created_at, LocalDateTime updated_at,
-			String device) {
+			String device, String role) {
 		super();
 		this.id = id;
 		this.mobileNo = mobileNo;
@@ -93,6 +103,7 @@ public class Mpin {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.device = device;
+		this.role = role;
 	}
 
 	public Mpin() {
