@@ -1,4 +1,4 @@
-package com.example.dealer.service;
+package com.example.dealer.dfso.service;
 
 import java.util.List;
 import java.util.Map;
@@ -9,18 +9,18 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 
-import com.example.dealer.model.Dealer;
+import com.example.dealer.dfso.model.Login;
 
 @Service
-public class TemporaryStoreService {
-	private final Map<String, List<?>> temporaryFpsStore = new ConcurrentHashMap<>();
+public class TemporaryStoreServiceTwo {
+	private final Map<String, List<Login>> temporaryFpsStore = new ConcurrentHashMap<>();
 
-    public void storeFpsData(String mobileNo, List<?> entityData) {
-        temporaryFpsStore.put(mobileNo, entityData);
+    public void storeFpsData(String mobileNo, List<Login> dfso) {
+        temporaryFpsStore.put(mobileNo, dfso);
         scheduleDataExpiration(mobileNo, 5, TimeUnit.MINUTES);
     }
 
-    public List<?> getFpsData(String mobileNo) {
+    public List<Login> getFpsData(String mobileNo) {
         return temporaryFpsStore.get(mobileNo);
     }
 

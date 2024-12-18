@@ -57,7 +57,7 @@ public class Dealer {
 	private String villagename;
 	
 	@Column(name="mobile_no")
-	private String mobile_no;
+	private String mobileno;
 	
 	@Column(name="issuedate")
 	@JsonFormat(pattern = "dd/MM/yyyy")
@@ -263,14 +263,14 @@ public class Dealer {
 
 
 
-	public String getMobile_no() {
-		return mobile_no;
+	public String getMobileno() {
+		return mobileno;
 	}
 
 
 
-	public void setMobile_no(String mobile_no) {
-		this.mobile_no = mobile_no;
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
 	}
 
 
@@ -409,7 +409,7 @@ public class Dealer {
 
 	public Dealer(String fpsid, String statename, String license_no, String fpstype, String area_type, String district,
 			String fps_operation_name, String fpsname, String fpsowner, String gender, int age, String address,
-			String tehsilname, String villagename, String mobile_no, Date issuedate, Date fps_validity_upto,
+			String tehsilname, String villagename, String mobileno, Date issuedate, Date fps_validity_upto,
 			Double latitute, Double longitute, Double accuracy, String fps_owner_father_name, String pincode,
 			String fps_nomine_name, String fps_nomine_mobile_no, String fps_nomine_father_name, String fps_auth_type) {
 		super();
@@ -427,7 +427,7 @@ public class Dealer {
 		this.address = address;
 		this.tehsilname = tehsilname;
 		this.villagename = villagename;
-		this.mobile_no = mobile_no;
+		this.mobileno = mobileno;
 		this.issuedate = issuedate;
 		this.fps_validity_upto = fps_validity_upto;
 		this.latitute = latitute;
@@ -455,7 +455,7 @@ public class Dealer {
 				+ fpstype + ", area_type=" + area_type + ", district=" + district + ", fps_operation_name="
 				+ fps_operation_name + ", fpsname=" + fpsname + ", fpsowner=" + fpsowner + ", gender=" + gender
 				+ ", age=" + age + ", address=" + address + ", tehsilname=" + tehsilname + ", villagename="
-				+ villagename + ", mobile_no=" + mobile_no + ", issuedate=" + issuedate + ", fps_validity_upto="
+				+ villagename + ", mobileno=" + mobileno + ", issuedate=" + issuedate + ", fps_validity_upto="
 				+ fps_validity_upto + ", latitute=" + latitute + ", longitute=" + longitute + ", accuracy=" + accuracy
 				+ ", fps_owner_father_name=" + fps_owner_father_name + ", pincode=" + pincode + ", fps_nomine_name="
 				+ fps_nomine_name + ", fps_nomine_mobile_no=" + fps_nomine_mobile_no + ", fps_nomine_father_name="

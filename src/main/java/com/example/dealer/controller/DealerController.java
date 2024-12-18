@@ -18,11 +18,12 @@ import org.springframework.http.ResponseEntity;
 
 
 import com.example.dealer.repository.DealerRepository;
+import com.example.dealer.response.UserRequest;
 import com.example.dealer.service.DealerService;
 import com.example.dealer.service.OtpService;
 import com.example.dealer.service.TemporaryStoreService;
 import com.example.dealer.util.JwtUtil;
-
+import com.example.dealer.dfso.service.LoginService;
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Otp;
 
@@ -35,6 +36,9 @@ public class DealerController {
 	
 	@Autowired
 	DealerService dealerservice;
+	
+	@Autowired
+	LoginService loginservice;
 	
 	@Autowired
 	OtpService otpService;
@@ -51,16 +55,23 @@ public class DealerController {
 	
 	
 	@PostMapping("/dealer")
-	public ResponseEntity<Object> getDealerByFpsid(
-    		@RequestBody Dealer dealer){
-    	List<Dealer> fps= dealerservice.getDealerByFpsid(dealer.getStatename(), dealer.getMobile_no());
+	public ResponseEntity<Object> authenticateUser(
+			@RequestBody UserRequest userRequest){
+		List<?> entityData = null;
+        String role = userRequest.getRole();
         
-        if (fps != null && !fps.isEmpty()) {
+        if ("DEALER".equalsIgnoreCase(role)) {
+            entityData = dealerservice.getDealerByFpsid(userRequest.getStatename(), userRequest.getMobileno());
+        } else if ("DFSO".equalsIgnoreCase(role)) {
+            entityData = loginservice.getDfsoByMobile(userRequest.getStatename(), userRequest.getMobileno());
+        }
+        
+        if (entityData  != null && !entityData.isEmpty()) {
         	String otp = otpService.generateOtp();
-        	otpService.sendOtp(dealer.getMobile_no(), otp);
-        	otpService.storeOtp(dealer.getMobile_no(), otp);
+        	otpService.sendOtp(userRequest.getMobileno(), otp);
+        	otpService.storeOtp(userRequest.getMobileno(), otp);
         	
-        	tempStoreService.storeFpsData(dealer.getMobile_no(), fps);
+        	tempStoreService.storeFpsData(userRequest.getMobileno(), entityData);
         	
         	Map<String, Object> response = new HashMap<>();
             response.put("status", true);
@@ -85,15 +96,16 @@ public class DealerController {
 	    boolean isOtpValid = otpService.verifyOtp(otpRequest.getMobileNo(), otpRequest.getOtp());
 	    
 	    if (isOtpValid) {
-	    	List<Dealer> fps = tempStoreService.getFpsData(otpRequest.getMobileNo());
+	    	List<?> entityData = tempStoreService.getFpsData(otpRequest.getMobileNo());
 	    	String token = jwtUtil.generateToken(otpRequest.getMobileNo());
 	        Map<String, Object> response = new HashMap<>();
 	        response.put("status", true);
 	        response.put("message", "OTP verified successfully");
 	        response.put("token", token);
-	        response.put("dealers", fps);
+	        response.put("data", entityData);
 	        tempStoreService.clearFpsData(otpRequest.getMobileNo());
 	        return ResponseEntity.ok(response);
+	        
 	    } else {
 	        Map<String, Object> response = new HashMap<>();
 	        response.put("status", false);

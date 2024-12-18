@@ -14,8 +14,8 @@ public class DealerService {
 	@Autowired
     private DealerRepository dealerRepository;
 
-	public List<Dealer> getDealerByFpsid(String statename, String mobile_no) {
+	public List<Dealer> getDealerByFpsid(String statename, String mobileno) {
 		
-		return dealerRepository.findByStateAndMobileNumber(statename, mobile_no);
+		return dealerRepository.findByStateAndMobileNumber(statename, mobileno);
 	}
 }
