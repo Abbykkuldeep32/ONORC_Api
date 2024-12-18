@@ -98,22 +98,29 @@ public class MpinService {
 		
 	}
 	
-	public ResponseEntity<LoginResponse> VerifyMpinByMpinAndDevice(String Mpin,String device,String role) {
-		
+	public ResponseEntity<LoginResponse> VerifyMpinByMpinAndDevice(String Mpin,String device) {
 		Optional<Mpin> verify = mpinRepository.findByMpinAndDevice(Mpin, device);
-		
 		if(verify.isPresent()) {
 			List<?> data;
-			String mobileNo = verify.get().getMobileNo();
+			Mpin mpinData = verify.get();
+	        String mobileNo = mpinData.getMobileNo();
+	        System.out.print(mobileNo);
+	        String role = mpinData.getRole();
+	        System.out.print(role);
 			String token = jwtUtil.generateToken(mobileNo);
 			
-			if ("DEALER".equalsIgnoreCase(role)) {
-	            data = dealerRepository.findByMobileNo(mobileNo);
-	        } else if ("DFSO".equalsIgnoreCase(role)) {
-	            data = loginRepository.findByMobileNo(mobileNo);
-	        } else {
-	            return ResponseEntity.ok(new LoginResponse(false, "Invalid role", null, null));
-	        }
+			switch (role.toUpperCase()) {
+            case "DEALER":
+                data = dealerRepository.findByMobileNo(mobileNo);
+                break;
+
+            case "DFSO":
+                data = loginRepository.findByMobileNo(mobileNo);
+                break;
+
+            default:
+                return ResponseEntity.ok(new LoginResponse(false, "Invalid role: " + role, null, null));
+        }
 			
 			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",data,token));
 		}
