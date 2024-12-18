@@ -70,13 +70,13 @@ public class MpinService {
 	        }
 		}
 		
-		List<Dealer> dealers = dealerRepository.findByMobileNo(mobileNo);
+		List<Dealer> data = dealerRepository.findByMobileNo(mobileNo);
 		
-		if (dealers.isEmpty()) {
+		if (data.isEmpty()) {
 	        return ResponseEntity.ok(new LoginResponse(true, "Login successful. No dealers found for the given mobile number.", null, null));
 	    }
 
-	    return ResponseEntity.ok(new LoginResponse(true, "Login successful.", dealers, token ));
+	    return ResponseEntity.ok(new LoginResponse(true, "Login successful.", data, token ));
 		
 	}
 	
@@ -99,8 +99,8 @@ public class MpinService {
 		if(verify.isPresent()) {
 			String mobileNo = verify.get().getMobileNo();
 			String token = jwtUtil.generateToken(mobileNo);
-			List<Dealer> dealers = dealerRepository.findByMobileNo(mobileNo);
-			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",dealers,token));
+			List<Dealer> data = dealerRepository.findByMobileNo(mobileNo);
+			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",data,token));
 		}
 		
 		return ResponseEntity.ok(new LoginResponse(false, "MPin not verified",null,null));
