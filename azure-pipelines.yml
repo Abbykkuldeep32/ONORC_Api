@@ -1,0 +1,47 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- dev
+- main
+
+pool:
+  name: DevServersHQ
+
+variables:
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isDev: $[eq(variables['Build.SourceBranch'], 'refs/heads/dev')]
+steps:
+- task: Maven@3
+  displayName: 'Maven pom.xml'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+- task: CopyFiles@2
+  condition: eq(variables.isMain, true)
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.war'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+
+- task: CmdLine@2
+  condition: eq(variables.isMain, true)
+  inputs:
+    script: 'for /r %%x in (*.war) do ren "%%x" onorc.war'
+    workingDirectory: '$(build.artifactstagingdirectory)'
+    
+- task: PublishBuildArtifacts@1
+  condition: eq(variables.isMain, true)
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
