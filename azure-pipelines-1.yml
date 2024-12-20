@@ -14,7 +14,7 @@ steps:
 
 - task: SonarQubePrepare@5
   inputs:
-    SonarQube: 'SonarQube-MeraRation'
+    SonarQube: 'SonarQube service connection'
     scannerMode: 'Other'
     extraProperties: |
       # Additional properties that will be passed to the scanner,
