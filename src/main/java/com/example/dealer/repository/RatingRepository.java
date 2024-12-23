@@ -33,4 +33,7 @@ public interface RatingRepository extends JpaRepository<Rating,Short>{
             "GROUP BY r.fpsid, d.fpsowner " +
             "ORDER BY AVG(r.star) ASC")
 	List<Object[]> findLow10UsersByAverageRating(@Param("statecode") Long statecode, @Param("districtcode") String districtcode);
+	
+	@Query("SELECT r FROM Rating r WHERE r.state_code = :statecode AND r.district_code = :districtcode")
+	List<Rating> findByStatecodeAndDistrictcode(@Param("statecode") Long statecode,@Param("districtcode") String districtcode);
 }

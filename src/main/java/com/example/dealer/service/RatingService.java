@@ -59,4 +59,9 @@ public class RatingService {
 	    }).collect(Collectors.toList());
     }
 	
+	public List<Rating> getRatingByStateAndDistrict(Long statecode,String districtcode) {
+		
+		return ratingRepository.findByStatecodeAndDistrictcode(statecode, districtcode);
+	}
+	
 }

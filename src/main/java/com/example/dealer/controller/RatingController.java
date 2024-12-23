@@ -42,6 +42,11 @@ public class RatingController {
         }
     }
 	
+	@PostMapping("/dfso")
+    public List<Rating> getUsersByRating(@RequestBody Rating rat) {
+        return ratingService.getRatingByStateAndDistrict(rat.getState_code(),rat.getDistrict_code());
+    }
+	
 	@PostMapping("/top-rated-fps")
     public List<Map<String, Object>> getTopUsersByRating(@RequestBody Rating rat) {
         return ratingService.getTop10UsersByAverageRating(rat.getState_code(),rat.getDistrict_code());

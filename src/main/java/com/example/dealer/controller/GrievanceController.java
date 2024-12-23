@@ -1,5 +1,7 @@
 package com.example.dealer.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,16 @@ import com.example.dealer.model.Grievance;
 import com.example.dealer.repository.GrievanceRepository;
 
 import com.example.dealer.response.SaveResponse;
+import com.example.dealer.service.GrievanceService;
 
 @RestController
 @RequestMapping("/api/v1/grievance")
 public class GrievanceController {
 	@Autowired
     private GrievanceRepository grievanceRepository;
+	
+	@Autowired
+	private GrievanceService grievanceService;
 	
 	@PostMapping("/save")
     public ResponseEntity<SaveResponse> saveCordinates(@RequestBody Grievance grievance) {
@@ -41,6 +47,12 @@ public class GrievanceController {
 	
 	private String generateGrievanceNumber(Long id) {
 	    return "ONORC-" + String.format("%05d", id);
+	}
+	
+	@PostMapping("/get")
+	public List<Grievance> getGrievances(@RequestBody Grievance grievance){
+		return grievanceService.getGrievancesByStateAndDistrict(grievance.getState_name(),grievance.getDistrict_name());
+		
 	}
 	
 }
