@@ -19,6 +19,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     	 http
+    	 .headers()
+         .xssProtection()
+         .and()
+         .contentSecurityPolicy("default-src 'self'; script-src 'self'; object-src 'none';")
+         .and()
+         .frameOptions().sameOrigin()
+         .and()
     	 .csrf().disable()
          .cors()
          .and()
