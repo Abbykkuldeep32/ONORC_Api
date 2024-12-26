@@ -9,6 +9,7 @@ public class LoginResponse {
 	private String message;
     private List<?> data;
     private String token;
+    private String role;
 	public boolean isStatus() {
 		return status;
 	}
@@ -33,12 +34,19 @@ public class LoginResponse {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public LoginResponse(boolean status, String message, List<?> data, String token) {
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public LoginResponse(boolean status, String message, List<?> data, String token,String role) {
 		super();
 		this.status = status;
 		this.message = message;
 		this.data = data;
 		this.token = token;
+		this.role = role;
 	}
 
     // Getters and Setters

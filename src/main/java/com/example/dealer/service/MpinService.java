@@ -72,17 +72,17 @@ public class MpinService {
 		if(user.isPresent()) {
 			Mpin existingUser = user.get();
 			if (!existingUser.getMpin().equals(mpin)) {
-				return ResponseEntity.ok(new LoginResponse(false, "Invalid MPIN", null, null));
+				return ResponseEntity.ok(new LoginResponse(false, "Invalid MPIN", null, null,null));
 	        }
 		}
 		
 		List<Dealer> data = dealerRepository.findByMobileNo(mobileNo);
 		
 		if (data.isEmpty()) {
-	        return ResponseEntity.ok(new LoginResponse(true, "Login successful. No dealers found for the given mobile number.", null, null));
+	        return ResponseEntity.ok(new LoginResponse(true, "Login successful. No dealers found for the given mobile number.", null, null,null));
 	    }
 
-	    return ResponseEntity.ok(new LoginResponse(true, "Login successful.", data, token ));
+	    return ResponseEntity.ok(new LoginResponse(true, "Login successful.", data, token,null));
 		
 	}
 	
@@ -119,13 +119,13 @@ public class MpinService {
                 break;
 
             default:
-                return ResponseEntity.ok(new LoginResponse(false, "Invalid role: " + role, null, null));
+                return ResponseEntity.ok(new LoginResponse(false, "Invalid role: " + role,null, null, null));
         }
 			
-			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",data,token));
+			return ResponseEntity.ok(new LoginResponse(true, "MPin Verified",data,token,role));
 		}
 		
-		return ResponseEntity.ok(new LoginResponse(false, "MPin not verified",null,null));
+		return ResponseEntity.ok(new LoginResponse(false, "MPin not verified",null,null,null));
 		
 	}
 	
@@ -135,10 +135,10 @@ public class MpinService {
 		
 		if(forget.isPresent()) {
 			mpinRepository.delete(forget.get());
-			return ResponseEntity.ok(new LoginResponse(true, "MPIN forgotten", null, null));
+			return ResponseEntity.ok(new LoginResponse(true, "MPIN forgotten",null, null, null));
 		}
 		
-		return ResponseEntity.ok(new LoginResponse(false, "MPIN not found for the given device", null, null));
+		return ResponseEntity.ok(new LoginResponse(false, "MPIN not found for the given device",null, null, null));
 		
 	}
 	

@@ -38,7 +38,7 @@ public class RatingController {
         if (ratings != null && !ratings.isEmpty()) {
             return ResponseEntity.ok(ratings);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(ratings);
         }
     }
 	
