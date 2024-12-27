@@ -27,11 +27,14 @@ public class StockService {
         totalStock.put("allocation_year", allocation_year);
         totalStock.put("fpscode", fpscode);
         
+        Map<String, Double> stockDetails = new HashMap<>();
         for (Object[] result : results) {
             String commodityType = (String) result[0];
             Double totalQuantity = (Double) result[1];
-            totalStock.put(commodityType, totalQuantity);
+            stockDetails.put(commodityType, totalQuantity);
         }
+        
+        totalStock.put("stock", stockDetails);
         return totalStock;
     }
 }
