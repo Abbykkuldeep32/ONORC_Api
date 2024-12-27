@@ -1,5 +1,6 @@
 package com.example.dealer.dfso.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,11 +28,18 @@ public class StockService {
         totalStock.put("allocation_year", allocation_year);
         totalStock.put("fpscode", fpscode);
         
-        Map<String, Double> stockDetails = new HashMap<>();
+        List<Map<String, Object>> stockDetails = new ArrayList<>();
+        
         for (Object[] result : results) {
+        	
             String commodityType = (String) result[0];
             Double totalQuantity = (Double) result[1];
-            stockDetails.put(commodityType, totalQuantity);
+            
+            Map<String, Object> commodityDetail = new HashMap<>();
+            commodityDetail.put("commodity_name", commodityType);
+            commodityDetail.put("quantity", totalQuantity);
+            
+            stockDetails.add(commodityDetail);
         }
         
         totalStock.put("stock", stockDetails);
