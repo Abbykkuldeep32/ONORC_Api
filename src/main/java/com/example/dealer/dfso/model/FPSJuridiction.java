@@ -1,5 +1,7 @@
 package com.example.dealer.dfso.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -79,9 +81,11 @@ public class FPSJuridiction {
 	private String mobile_no;
 	
 	@Column(name="issuedate")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private String issuedate;
 	
 	@Column(name="fps_validity_upto")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private String fps_validity_upto;
 	
 	@Column(name="lattitude")
