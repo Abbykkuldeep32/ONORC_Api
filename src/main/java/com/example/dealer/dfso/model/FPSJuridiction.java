@@ -1,5 +1,7 @@
 package com.example.dealer.dfso.model;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -82,11 +84,11 @@ public class FPSJuridiction {
 	
 	@Column(name="issuedate")
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private String issuedate;
+	private Date issuedate;
 	
 	@Column(name="fps_validity_upto")
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private String fps_validity_upto;
+	private Date fps_validity_upto;
 	
 	@Column(name="lattitude")
 	private String lattitude;
@@ -311,19 +313,19 @@ public class FPSJuridiction {
 		this.mobile_no = mobile_no;
 	}
 
-	public String getIssuedate() {
+	public Date getIssuedate() {
 		return issuedate;
 	}
 
-	public void setIssuedate(String issuedate) {
+	public void setIssuedate(Date issuedate) {
 		this.issuedate = issuedate;
 	}
 
-	public String getFps_validity_upto() {
+	public Date getFps_validity_upto() {
 		return fps_validity_upto;
 	}
 
-	public void setFps_validity_upto(String fps_validity_upto) {
+	public void setFps_validity_upto(Date fps_validity_upto) {
 		this.fps_validity_upto = fps_validity_upto;
 	}
 
@@ -435,7 +437,7 @@ public class FPSJuridiction {
 			String lgd_district_code, String dfsocode, String dfsoname, String afsocode, String afsoname,
 			String statename, String license_no, String fpstype, String area_type, String district,
 			String fps_operation_name, String fpsname, String fpsowner, String gender, String age, String address,
-			String tehsilname, String villagename, String mobile_no, String issuedate, String fps_validity_upto,
+			String tehsilname, String villagename, String mobile_no, Date issuedate, Date fps_validity_upto,
 			String lattitude, String longitude, String accuracy, String fps_owner_father_name, String pincode,
 			String fps_nomine_name, String fps_nomine_mobile_no, String fps_nomine_father_name, String fps_auth_type,
 			String inspectorcode, String inspectorname, String godownid, String godownname) {
