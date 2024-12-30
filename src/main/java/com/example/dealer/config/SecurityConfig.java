@@ -53,7 +53,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("http://13.234.117.58:9090"); // Allowed origin
+        corsConfiguration.addAllowedOrigin("http://103.25.130.105:9090"); // Allowed origin
         corsConfiguration.addAllowedMethod("*"); // Allow all HTTP methods
         //corsConfiguration.addAllowedHeader("*"); // Allow all headers (if necessary)
         corsConfiguration.setAllowCredentials(true); // Allow credentials (cookies, HTTP authentication)
