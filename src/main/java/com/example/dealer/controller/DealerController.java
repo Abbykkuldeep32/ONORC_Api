@@ -24,6 +24,7 @@ import com.example.dealer.service.OtpService;
 import com.example.dealer.service.TemporaryStoreService;
 import com.example.dealer.util.JwtUtil;
 import com.example.dealer.dfso.service.LoginService;
+import com.example.dealer.inspector.service.InspectorService;
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Otp;
 
@@ -39,6 +40,9 @@ public class DealerController {
 	
 	@Autowired
 	LoginService loginservice;
+	
+	@Autowired
+	InspectorService inspectorservice;
 	
 	@Autowired
 	OtpService otpService;
@@ -64,7 +68,10 @@ public class DealerController {
             entityData = dealerservice.getDealerByFpsid(userRequest.getStatename(), userRequest.getMobileno());
         } else if ("DFSO".equalsIgnoreCase(role)) {
             entityData = loginservice.getDfsoByMobile(userRequest.getStatename(), userRequest.getMobileno());
+        }else if ("INSPECTOR".equalsIgnoreCase(role)) {
+            entityData = inspectorservice.getInspectorByMobile(userRequest.getStatename(), userRequest.getMobileno());
         }
+        
         
         if (entityData  != null && !entityData.isEmpty()) {
         	String otp = otpService.generateOtp();
@@ -80,7 +87,7 @@ public class DealerController {
         } else {
         	Map<String, Object> response = new HashMap<>();
             response.put("status", false); 
-            response.put("message", "Dealer Does not exist"); 
+            response.put("message", "User does not exist"); 
 
             return ResponseEntity.status(HttpStatus.OK).body(response);
         }

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.dealer.dfso.repository.LoginRepository;
+import com.example.dealer.inspector.repository.InspectorRepository;
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Mpin;
 import com.example.dealer.repository.DealerRepository;
@@ -32,6 +33,9 @@ public class MpinService {
 	
 	@Autowired
 	LoginRepository loginRepository;
+	
+	@Autowired
+	InspectorRepository inspectorRepository;
 	
 	@Autowired
     JwtUtil jwtUtil;
@@ -117,6 +121,10 @@ public class MpinService {
             case "DFSO":
                 data = loginRepository.findByMobileNo(mobileNo);
                 break;
+                
+            case "INSPECTOR":
+                data = inspectorRepository.findByMobileNo(mobileNo);
+                break;    
 
             default:
                 return ResponseEntity.ok(new LoginResponse(false, "Invalid role: " + role,null, null, null));
