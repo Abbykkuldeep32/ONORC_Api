@@ -44,8 +44,9 @@ public class Grievance {
 	
 	@Column(name="last_modified")
 	private Date last_modified;
-
 	
+	@Column(name="grievance_doc" , columnDefinition = "TEXT")
+	private String grievancedoc ;
 
 	public String getFpsid() {
 		return fpsid;
@@ -153,10 +154,16 @@ public class Grievance {
 		this.last_modified = last_modified;
 	}
 
+	public String getGrievancedoc() {
+		return grievancedoc;
+	}
 
+	public void setGrievancedoc(String grievancedoc) {
+		this.grievancedoc = grievancedoc;
+	}
 
 	public Grievance(Long id, String grievancenumber, String state_name, String district_name, Short grievance_cat_id,
-			String grievance_description, String fpsid, Date created_date, Date last_modified) {
+			String grievance_description, String fpsid, Date created_date, Date last_modified, String grievancedoc) {
 		super();
 		this.id = id;
 		this.grievancenumber = grievancenumber;
@@ -167,6 +174,7 @@ public class Grievance {
 		this.fpsid = fpsid;
 		this.created_date = created_date;
 		this.last_modified = last_modified;
+		this.grievancedoc = grievancedoc;
 	}
 
 
