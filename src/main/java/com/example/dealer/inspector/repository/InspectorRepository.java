@@ -15,4 +15,7 @@ public interface InspectorRepository extends JpaRepository<InspectorLogin, Strin
 	
 	@Query("SELECT s FROM InspectorLogin s WHERE s.mobileno = :mobileno")
     List<InspectorLogin> findByMobileNo(@Param("mobileno") String mobileno);
+	
+	@Query("SELECT s FROM InspectorLogin s WHERE s.inspectorname = :inspectorname")
+    List<InspectorLogin> findByInspectorName(@Param("inspectorname") String inspectorname);
 }

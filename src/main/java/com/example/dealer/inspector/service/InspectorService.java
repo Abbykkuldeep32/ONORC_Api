@@ -18,4 +18,9 @@ public class InspectorService {
 		
 		return inspectorRepository.findByStateAndMobileNumber(statename, mobileno);
 	}
+	
+	public List<InspectorLogin> getInspectorByName(String inspectorname) {
+		
+		return inspectorRepository.findByInspectorName(inspectorname);
+	}
 }
