@@ -2,6 +2,8 @@ package com.example.dealer.dfso.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -60,6 +62,7 @@ public class FpsStockMgt {
 	private Double stockrecieved;
 	
 	@Column(name="created_on")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date created_on;
 
 	public String getTruck_no() {
