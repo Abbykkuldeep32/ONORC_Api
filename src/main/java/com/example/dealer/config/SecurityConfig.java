@@ -43,6 +43,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/public/**").permitAll()
             .requestMatchers("/api/v1/saledetail/generate-receipt/**").permitAll()
+            .requestMatchers("/api/v1/inspector/login").permitAll()
             .anyRequest().authenticated()
         )
         .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // Add JWT filter

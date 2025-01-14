@@ -44,6 +44,9 @@ public class DealerController {
 	@Autowired
 	InspectorService inspectorservice;
 	
+	//@Autowired
+	//GodownService
+	
 	@Autowired
 	OtpService otpService;
 	
