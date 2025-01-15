@@ -1,0 +1,42 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- dev
+- master
+
+pool:
+  name: DevServersHQ
+
+steps:
+
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'SonarQube service connection'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=MeraRationP2_API_AZPjTQfgaBIswjHQUf22
+      sonar.projectName=API
+  displayName: 'Sonar Prepare'
+  
+- task: Maven@3
+  displayName: 'Maven pom.xml'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
+
+
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
