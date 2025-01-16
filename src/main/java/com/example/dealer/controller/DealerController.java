@@ -24,6 +24,7 @@ import com.example.dealer.service.OtpService;
 import com.example.dealer.service.TemporaryStoreService;
 import com.example.dealer.util.JwtUtil;
 import com.example.dealer.dfso.service.LoginService;
+import com.example.dealer.godown.service.GodownService;
 import com.example.dealer.inspector.service.InspectorService;
 import com.example.dealer.model.Dealer;
 import com.example.dealer.model.Otp;
@@ -44,8 +45,8 @@ public class DealerController {
 	@Autowired
 	InspectorService inspectorservice;
 	
-	//@Autowired
-	//GodownService
+	@Autowired
+	GodownService godownservice;
 	
 	@Autowired
 	OtpService otpService;
@@ -73,6 +74,8 @@ public class DealerController {
             entityData = loginservice.getDfsoByMobile(userRequest.getStatename(), userRequest.getMobileno());
         }else if ("INSPECTOR".equalsIgnoreCase(role)) {
             entityData = inspectorservice.getInspectorByMobile(userRequest.getStatename(), userRequest.getMobileno());
+        }else if ("GODOWN".equalsIgnoreCase(role)) {
+            entityData = godownservice.getGodownByMobile(userRequest.getStatename(), userRequest.getMobileno());
         }
         
         

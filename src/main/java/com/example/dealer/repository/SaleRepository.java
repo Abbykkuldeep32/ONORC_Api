@@ -12,18 +12,21 @@ import com.example.dealer.model.Sale;
 public interface SaleRepository extends JpaRepository<Sale,Long>{
 	
 	@Query(value = "SELECT * FROM onorc_sale_txn_data s WHERE s.rationcardid = :rationCardNo " +
-            "AND EXTRACT(YEAR FROM s.transaction_date::date) = :year " +
-            "AND EXTRACT(MONTH FROM s.transaction_date::date) = :month", 
+            "AND EXTRACT(YEAR FROM s.transaction_date) = :year " +
+            "AND EXTRACT(MONTH FROM s.transaction_date) = :month", 
     nativeQuery = true)
 	List<Sale> findByRationCardNoAndTransactionDate(@Param("rationCardNo") String rationCardNo, @Param("year") int year, 
             @Param("month") int month);
 
 	Sale findById(long id);
 	
-	@Query(value = "SELECT * FROM (SELECT ROW_NUMBER() OVER (PARTITION BY s.rationcardid ORDER BY s.id) AS row_num, s.* " +
-            "FROM onorc_sale_txn_data s " +
-            "WHERE s.membername ILIKE :membername) AS ranked " +
-            "WHERE ranked.row_num = 1", nativeQuery = true)
+	@Query(value = "SELECT * FROM ( " +
+            "  SELECT ROW_NUMBER() OVER (PARTITION BY s.rationcardid ORDER BY s.id) AS row_num, s.* " +
+            "  FROM onorc_sale_txn_data s " +
+            "  WHERE s.membername = :membername " +
+            ") AS ranked " +
+            "WHERE ranked.row_num = 1", 
+    nativeQuery = true)
 	List<Sale> findByMembername(@Param("membername") String membername);
 
 	@Query(value = "SELECT * FROM onorc_sale_txn_data WHERE MD5(CAST(id AS CHAR)) = :encryptedId", nativeQuery = true)
