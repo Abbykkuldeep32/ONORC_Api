@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.dealer.inspector.model.InspectorFPS;
 import com.example.dealer.inspector.model.InspectorLogin;
 import com.example.dealer.inspector.repository.InspectorRepository;
 
@@ -19,8 +20,13 @@ public class InspectorService {
 		return inspectorRepository.findByStateAndMobileNumber(statename, mobileno);
 	}
 	
-	public List<InspectorLogin> getInspectorByName(String inspectorname) {
+	public List<InspectorLogin> getInspectorByCode(String inspectorcode) {
 		
-		return inspectorRepository.findByInspectorName(inspectorname);
+		return inspectorRepository.findByInspectorCode(inspectorcode);
+	}
+	
+	public List<InspectorFPS> getFPSByInspectorCode(String statecode, String inspectorcode) {
+			
+		return inspectorRepository.findByStateAndInspectorCode(statecode,inspectorcode);
 	}
 }
